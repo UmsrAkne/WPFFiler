@@ -4,9 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFFiler"
+        xmlns:dc="clr-namespace:WPFFiler.viewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <dc:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+
+        <ListView ItemsSource="{Binding FileList.Files}">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="SnapsToDevicePixels"
+                            Value="true" />
+                    <Setter Property="OverridesDefaultStyle"
+                            Value="true" />
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="Border"
+                                          Padding="2"
+                                          SnapsToDevicePixels="true"
+                                          Background="Transparent">
+
+                                    <VisualStateManager.VisualStateGroups>
+
+                                        <VisualStateGroup x:Name="SelectionStates">
+                                            <VisualState x:Name="Unselected" />
+                                            <VisualState x:Name="Selected">
+                                                <Storyboard>
+                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                                  Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                                        <EasingColorKeyFrame KeyTime="0"
+                                                                             Value="LightBlue" />
+                                                    </ColorAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                            <VisualState x:Name="SelectedUnfocused">
+                                                <Storyboard>
+                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                              Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                                        <EasingColorKeyFrame KeyTime="0"
+                                                                         Value="LightGray" />
+                                                    </ColorAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="name"
+                                        DisplayMemberBinding="{Binding Name}"
+                                        />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>
