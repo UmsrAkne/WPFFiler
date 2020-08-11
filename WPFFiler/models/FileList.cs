@@ -25,6 +25,7 @@ namespace WPFFiler.models {
 
         public void reload() {
             string[] paths = Directory.GetFiles(currentDirectoryPath);
+            string[] directoryPaths = Directory.GetDirectories(currentDirectoryPath);
 
             Files.Clear();
             List<FileSystemInfo> tempFiles = new List<FileSystemInfo>();
@@ -32,7 +33,13 @@ namespace WPFFiler.models {
                 tempFiles.Add(new FileInfo(p));
             }
 
+            List<FileSystemInfo> tempDirectories = new List<FileSystemInfo>();
+            foreach(string dp in directoryPaths) {
+                tempDirectories.Add(new DirectoryInfo(dp));
+            }
+
             Files.AddRange(tempFiles);
+            files.AddRange(tempDirectories);
         }
     }
 }
