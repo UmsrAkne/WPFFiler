@@ -4,9 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFFiler"
+        xmlns:dc="clr-namespace:WPFFiler.viewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <dc:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+
+        <ListView ItemsSource="{Binding FileList.Files}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="name"
+                                        DisplayMemberBinding="{Binding Name}"
+                                        />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>
