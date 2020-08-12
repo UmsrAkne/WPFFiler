@@ -69,7 +69,7 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="name"
-                                        DisplayMemberBinding="{Binding Name}"
+                                        DisplayMemberBinding="{Binding Content.Name}"
                                         />
                     </GridView.Columns>
                 </GridView>
