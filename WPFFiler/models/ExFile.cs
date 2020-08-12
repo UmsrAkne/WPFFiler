@@ -25,18 +25,15 @@ namespace WPFFiler.models {
         }
 
         public ExFile(string path) {
-            FileSystemInfo f;
             CurrentPath = path;
-            if (!Exists(path)) {
+            if (!Exists) {
                 return;
             }
 
             Content = (Directory.Exists(path)) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
         }
 
-        public Boolean Exists(string path) {
-            return (File.Exists(path) || Directory.Exists(path));
-        }
+        public Boolean Exists { get => (File.Exists(CurrentPath) || Directory.Exists(CurrentPath)); }
 
     }
 }
