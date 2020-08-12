@@ -11,6 +11,16 @@
     <Window.DataContext>
         <dc:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.InputBindings>
+
+        <KeyBinding Key="Esc" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=FileListView}"
+                    />
+        <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=FileListView}"/>
+    </Window.InputBindings>
+    
     <StackPanel>
         
         <TextBox x:Name="urlBar"
@@ -28,6 +38,7 @@
 
             <ListView ItemsSource="{Binding FileList.Files}"
                       SelectedIndex="{Binding FileList.SelectedIndex}"
+                      x:Name="FileListView"
                       >
 
                 <ListView.ItemContainerStyle>

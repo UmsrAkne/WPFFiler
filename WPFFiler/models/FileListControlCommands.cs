@@ -58,5 +58,15 @@ namespace WPFFiler.models {
                 }
             ));
         }
+
+        private DelegateCommand<object> focusCommand;
+        public DelegateCommand<object> FocusCommand { 
+            get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
+                (object param) => {
+                    var view = (System.Windows.Controls.Control)param;
+                    view.Focus();
+                }
+            ));
+        }
     }
 }
