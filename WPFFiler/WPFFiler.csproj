@@ -79,6 +79,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="models\ExFile.cs" />
     <Compile Include="models\FileList.cs" />
     <Compile Include="viewModels\MainWindowViewModel.cs" />
     <Compile Include="views\MainWindow.xaml.cs">
