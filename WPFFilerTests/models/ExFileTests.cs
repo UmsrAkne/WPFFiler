@@ -76,5 +76,33 @@ namespace WPFFiler.models.Tests {
             // 存在しないパス
             Assert.IsFalse(new ExFile("testFileName").IsDirectory);
         }
+
+        [TestMethod()]
+        public void createFileTest() {
+            File.Delete("notExistFile");
+
+            ExFile f = new ExFile("notExistFile");
+            Assert.IsFalse(f.Exists);
+            Assert.IsNull(f.Content);
+
+            f.createFile();
+            Assert.IsTrue(f.Exists);
+            Assert.IsFalse(f.IsDirectory);
+            Assert.IsNotNull(f.Content);
+        }
+
+        [TestMethod()]
+        public void createDirectoryTest() {
+            Directory.Delete("notExistDirectory");
+
+            ExFile d = new ExFile("notExistDirectory");
+            Assert.IsFalse(d.Exists);
+            Assert.IsNull(d.Content);
+
+            d.createDirectory();
+            Assert.IsTrue(d.Exists);
+            Assert.IsTrue(d.IsDirectory);
+            Assert.IsNotNull(d.Content);
+        }
     }
 }
