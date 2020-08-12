@@ -11,7 +11,14 @@
     <Window.DataContext>
         <dc:MainWindowViewModel/>
     </Window.DataContext>
+    <StackPanel>
+        
+        <TextBox x:Name="urlBar"
+                 Text="{Binding FileList.CurrentDirectoryPath}"
+                 />
+
     <Grid>
+
 
         <ListView ItemsSource="{Binding FileList.Files}">
 
@@ -77,4 +84,5 @@
         </ListView>
 
     </Grid>
+    </StackPanel>
 </Window>
