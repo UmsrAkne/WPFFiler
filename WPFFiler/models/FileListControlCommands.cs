@@ -14,6 +14,24 @@ namespace WPFFiler.models {
             mainFileList = main;
         }
 
+        private DelegateCommand moveCursorToEndCommand;
+        public DelegateCommand MoveCursorToEndCommand {
+            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
+                () => {
+                    mainFileList.SelectedIndex = mainFileList.Files.Count - 1;
+                }
+            ));
+        }
+
+        private DelegateCommand moveCursorToHeadCommand;
+        public DelegateCommand MoveCursorToHeadCommand {
+            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
+                () => {
+                    mainFileList.SelectedIndex = 0;
+                }
+            ));
+        }
+
         private DelegateCommand downCursorCommand;
         public DelegateCommand DownCursorCommand {
             get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(

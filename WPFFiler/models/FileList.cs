@@ -12,7 +12,7 @@ namespace WPFFiler.models {
 
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {
-            private get => files;
+            get => files;
             set => SetProperty(ref files, value);
         }
 

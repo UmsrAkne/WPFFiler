@@ -21,6 +21,8 @@
             <Grid.InputBindings>
                 <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
                 <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
+                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
+                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
             </Grid.InputBindings>
 
