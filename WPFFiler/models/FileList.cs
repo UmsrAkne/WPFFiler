@@ -16,7 +16,11 @@ namespace WPFFiler.models {
             set => SetProperty(ref files, value);
         }
 
-        public string currentDirectoryPath = "";
+        private string currentDirectoryPath = "";
+        public string CurrentDirectoryPath {
+            get => currentDirectoryPath;
+            set => SetProperty(ref currentDirectoryPath, value);
+        }
 
         public FileList(string baseDirectoryPath) {
             currentDirectoryPath = baseDirectoryPath;
@@ -24,8 +28,8 @@ namespace WPFFiler.models {
         }
 
         public void reload() {
-            string[] paths = Directory.GetFiles(currentDirectoryPath);
-            string[] directoryPaths = Directory.GetDirectories(currentDirectoryPath);
+            string[] paths = Directory.GetFiles(CurrentDirectoryPath);
+            string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
 
             Files.Clear();
             List<ExFile> tempFiles = new List<ExFile>();
