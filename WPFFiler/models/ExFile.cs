@@ -35,5 +35,10 @@ namespace WPFFiler.models {
 
         public Boolean Exists { get => (File.Exists(CurrentPath) || Directory.Exists(CurrentPath)); }
 
+        /// <summary>
+        /// 対象がディレクトリであるかを取得します。対象がファイルであるか、存在しない場合は false を返します。
+        /// </summary>
+        public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
+
     }
 }

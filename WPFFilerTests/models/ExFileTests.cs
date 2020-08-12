@@ -64,5 +64,17 @@ namespace WPFFiler.models.Tests {
             ExFile d = new ExFile(emptyDirectoryName);
             Assert.IsTrue(d.Exists);
         }
+
+        [TestMethod()]
+        public void IsDirectoryTest() {
+            // 存在するディレクトリ
+            Assert.IsTrue(new ExFile(emptyDirectoryName).IsDirectory);
+
+            // 存在するファイル
+            Assert.IsFalse(new ExFile(emptyTextFileName0).IsDirectory);
+
+            // 存在しないパス
+            Assert.IsFalse(new ExFile("testFileName").IsDirectory);
+        }
     }
 }
