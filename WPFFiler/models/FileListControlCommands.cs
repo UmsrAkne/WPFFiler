@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,25 @@ namespace WPFFiler.models {
         public FileListControlCommands(FileList main) {
             mainFileList = main;
         }
+
+        private DelegateCommand downCursorCommand;
+        public DelegateCommand DownCursorCommand {
+            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
+                () => {
+                    mainFileList.SelectedIndex++;
+                }
+            ));
+        }
+
+        private DelegateCommand upCursorCommand;
+        public DelegateCommand UpCursorCommand {
+            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
+                () => {
+                    mainFileList.SelectedIndex--;
+                }
+            ));
+        }
+
+
     }
 }

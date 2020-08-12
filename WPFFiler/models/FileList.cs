@@ -22,6 +22,16 @@ namespace WPFFiler.models {
             set => SetProperty(ref currentDirectoryPath, value);
         }
 
+        private int selectedIndex = 0;
+        public int SelectedIndex {
+            get => selectedIndex;
+            set {
+                if(value >= 0 && value < Files.Count) {
+                    SetProperty(ref selectedIndex, value);
+                }
+            }
+        }
+
         public FileList(string baseDirectoryPath) {
             currentDirectoryPath = baseDirectoryPath;
             reload();

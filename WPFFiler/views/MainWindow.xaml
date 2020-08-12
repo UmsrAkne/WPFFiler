@@ -17,9 +17,15 @@
                  Text="{Binding FileList.CurrentDirectoryPath}"
                  />
 
-        <Grid>
+        <Grid Focusable="True">
+            <Grid.InputBindings>
+                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
+                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
+            </Grid.InputBindings>
 
-            <ListView ItemsSource="{Binding FileList.Files}">
+            <ListView ItemsSource="{Binding FileList.Files}"
+                      SelectedIndex="{Binding FileList.SelectedIndex}"
+                      >
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
