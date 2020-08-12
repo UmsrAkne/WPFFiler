@@ -17,72 +17,71 @@
                  Text="{Binding FileList.CurrentDirectoryPath}"
                  />
 
-    <Grid>
+        <Grid>
 
+            <ListView ItemsSource="{Binding FileList.Files}">
 
-        <ListView ItemsSource="{Binding FileList.Files}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="SnapsToDevicePixels"
+                                Value="true" />
+                        <Setter Property="OverridesDefaultStyle"
+                                Value="true" />
+                        <Setter Property="Template">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="SnapsToDevicePixels"
-                            Value="true" />
-                    <Setter Property="OverridesDefaultStyle"
-                            Value="true" />
-                    <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border x:Name="Border"
+                                              Padding="2"
+                                              SnapsToDevicePixels="true"
+                                              Background="Transparent">
 
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListViewItem">
-                                <Border x:Name="Border"
-                                          Padding="2"
-                                          SnapsToDevicePixels="true"
-                                          Background="Transparent">
+                                        <VisualStateManager.VisualStateGroups>
 
-                                    <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="SelectionStates">
+                                                <VisualState x:Name="Unselected" />
+                                                <VisualState x:Name="Selected">
+                                                    <Storyboard>
+                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                                      Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                                            <EasingColorKeyFrame KeyTime="0"
+                                                                                 Value="LightBlue" />
+                                                        </ColorAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
 
-                                        <VisualStateGroup x:Name="SelectionStates">
-                                            <VisualState x:Name="Unselected" />
-                                            <VisualState x:Name="Selected">
-                                                <Storyboard>
-                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                <VisualState x:Name="SelectedUnfocused">
+                                                    <Storyboard>
+                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
                                                                                   Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                        <EasingColorKeyFrame KeyTime="0"
-                                                                             Value="LightBlue" />
-                                                    </ColorAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </VisualState>
+                                                            <EasingColorKeyFrame KeyTime="0"
+                                                                             Value="LightGray" />
+                                                        </ColorAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
 
-                                            <VisualState x:Name="SelectedUnfocused">
-                                                <Storyboard>
-                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                                              Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                        <EasingColorKeyFrame KeyTime="0"
-                                                                         Value="LightGray" />
-                                                    </ColorAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
 
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-                                    <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
+                </ListView.ItemContainerStyle>
 
-            </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="name"
+                                            DisplayMemberBinding="{Binding Content.Name}"
+                                            />
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Header="name"
-                                        DisplayMemberBinding="{Binding Content.Name}"
-                                        />
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-    </Grid>
+        </Grid>
     </StackPanel>
 </Window>
