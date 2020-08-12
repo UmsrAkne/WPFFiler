@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFFiler.models {
-    class FileList : BindableBase{
+    public class FileList : BindableBase{
 
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {
