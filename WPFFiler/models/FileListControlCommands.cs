@@ -32,6 +32,13 @@ namespace WPFFiler.models {
             ));
         }
 
-
+        private DelegateCommand reloadCommand;
+        public DelegateCommand ReloadCommand {
+            get => reloadCommand ?? (reloadCommand = new DelegateCommand(
+                () => {
+                    mainFileList.reload();
+                }
+            ));
+        }
     }
 }
