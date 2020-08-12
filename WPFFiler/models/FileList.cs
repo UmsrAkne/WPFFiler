@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace WPFFiler.models {
     class FileList : BindableBase{
 
-        private ObservableCollection<FileSystemInfo> files = new ObservableCollection<FileSystemInfo>();
-        public ObservableCollection<FileSystemInfo> Files {
+        private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
+        public ObservableCollection<ExFile> Files {
             private get => files;
             set => SetProperty(ref files, value);
         }
@@ -28,14 +28,14 @@ namespace WPFFiler.models {
             string[] directoryPaths = Directory.GetDirectories(currentDirectoryPath);
 
             Files.Clear();
-            List<FileSystemInfo> tempFiles = new List<FileSystemInfo>();
+            List<ExFile> tempFiles = new List<ExFile>();
             foreach(string p in paths) {
-                tempFiles.Add(new FileInfo(p));
+                tempFiles.Add(new ExFile(p));
             }
 
-            List<FileSystemInfo> tempDirectories = new List<FileSystemInfo>();
+            List<ExFile> tempDirectories = new List<ExFile>();
             foreach(string dp in directoryPaths) {
-                tempDirectories.Add(new DirectoryInfo(dp));
+                tempDirectories.Add(new ExFile(dp));
             }
 
             Files.AddRange(tempFiles);
