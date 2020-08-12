@@ -34,6 +34,30 @@
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
+
+                <!-- 数字キーを受け取るコマンド -->
+                <KeyBinding Key="D0" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D1" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D2" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D3" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D4" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+
+                <KeyBinding Key="D5" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D6" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D7" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D8" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D9" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                
             </Grid.InputBindings>
 
             <ListView ItemsSource="{Binding FileList.Files}"

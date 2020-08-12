@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
 
+        private int repeatCount = 0;
         private FileList mainFileList;
 
         public FileListControlCommands(FileList main) {
@@ -68,5 +70,31 @@ namespace WPFFiler.models {
                 }
             ));
         }
+
+        private DelegateCommand<object> setRepeatCountCommand;
+        public DelegateCommand<object> SetRepeatCountCommand {
+            get => setRepeatCountCommand ?? (setRepeatCountCommand = new DelegateCommand<object>(
+                (object param) => {
+
+                    string numberString = param.ToString().Substring(1);
+                    // パラメーターに入ってくる文字列は "d0" から "d9" までの10種類。
+                    // dxの数字部分が、数字キーと対応している。
+
+                    if(repeatCount == 0) {
+                        repeatCount = int.Parse(numberString);
+                    }
+                    else {
+                        string stringNumbers = repeatCount.ToString() + numberString;
+                        repeatCount = int.Parse(stringNumbers);
+                    }
+
+                    if(repeatCount > 100) {
+                        repeatCount = 100;
+                    }
+
+                }
+            ));
+        }
+
     }
 }
