@@ -38,7 +38,12 @@ namespace WPFFiler.models {
         public DelegateCommand DownCursorCommand {
             get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
                 () => {
-                    mainFileList.SelectedIndex++;
+                    if(repeatCount == 0) {
+                        mainFileList.SelectedIndex++;
+                    }
+                    else {
+                        repeatCommand(() => mainFileList.SelectedIndex++);
+                    }
                 }
             ));
         }
@@ -47,7 +52,12 @@ namespace WPFFiler.models {
         public DelegateCommand UpCursorCommand {
             get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
                 () => {
-                    mainFileList.SelectedIndex--;
+                    if(repeatCount == 0) {
+                        mainFileList.SelectedIndex--;
+                    }
+                    else {
+                        repeatCommand(() => mainFileList.SelectedIndex--);
+                    }
                 }
             ));
         }
@@ -94,6 +104,18 @@ namespace WPFFiler.models {
 
                 }
             ));
+        }
+
+        /// <summary>
+        /// repeatCount の回数だけ action を実行し、実行後に repeatCount を 0 にセットします
+        /// </summary>
+        /// <param name="action"></param>
+        private void repeatCommand(Action action) {
+            for(int i = 0; i < repeatCount; i++) {
+                action();
+            }
+
+            repeatCount = 0;
         }
 
     }
