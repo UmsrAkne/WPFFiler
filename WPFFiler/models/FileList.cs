@@ -38,6 +38,8 @@ namespace WPFFiler.models {
         }
 
         public void reload() {
+            SelectedIndex = 0;
+
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
             string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
 
