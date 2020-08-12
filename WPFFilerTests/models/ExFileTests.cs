@@ -13,6 +13,7 @@ namespace WPFFiler.models.Tests {
 
         private readonly string emptyTextFileName0 = "emptyFile0.txt";
         private readonly string emptyTextFileName1 = "emptyFile1.txt";
+        private readonly string emptyDirectoryName = "emptyDirectory";
 
         /// <summary>
         /// 空白ファイル emptyFile0.txt,emptyFile1.txt の作成
@@ -47,6 +48,21 @@ namespace WPFFiler.models.Tests {
         public void ExFileTest() {
             FileInfo f0 = new FileInfo(emptyTextFileName0);
             ExFile f = new ExFile(f0.FullName);
+        }
+
+        [TestMethod()]
+        public void ExistsTest() {
+            // initialize で生成したファイルが存在するか
+            ExFile f = new ExFile(emptyTextFileName0);
+            Assert.IsTrue(f.Exists);
+
+            // 存在しないファイルを指定した際、false が返って来るか
+            ExFile notExistFile = new ExFile("notExistsFile");
+            Assert.IsFalse(notExistFile.Exists);
+
+            // 指定したパスがディレクトリであっても、存在すると判定されるか
+            ExFile d = new ExFile(emptyDirectoryName);
+            Assert.IsTrue(d.Exists);
         }
     }
 }
