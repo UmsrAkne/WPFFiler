@@ -34,6 +34,7 @@
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
+                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" />
 
                 <!-- 数字キーを受け取るコマンド -->
                 <KeyBinding Key="D0" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"

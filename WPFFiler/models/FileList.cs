@@ -19,7 +19,10 @@ namespace WPFFiler.models {
         private string currentDirectoryPath = "";
         public string CurrentDirectoryPath {
             get => currentDirectoryPath;
-            set => SetProperty(ref currentDirectoryPath, value);
+            set {
+                SetProperty(ref currentDirectoryPath, value);
+                reload();
+            }
         }
 
         private int selectedIndex = 0;

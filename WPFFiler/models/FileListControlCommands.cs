@@ -77,6 +77,17 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand openDirectoryCommand;
+        public DelegateCommand OpenDirectoryCommand {
+            get => openDirectoryCommand ?? (openDirectoryCommand = new DelegateCommand(
+                () => {
+                    mainFileList.CurrentDirectoryPath = mainFileList.Files[mainFileList.SelectedIndex].Content.FullName;
+                },
+                () => mainFileList.Files[mainFileList.SelectedIndex].IsDirectory
+            ));
+        }
+
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
