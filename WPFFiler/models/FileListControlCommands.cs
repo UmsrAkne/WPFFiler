@@ -29,7 +29,13 @@ namespace WPFFiler.models {
         public DelegateCommand MoveCursorToHeadCommand {
             get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
                 () => {
-                    mainFileList.SelectedIndex = 0;
+                    if(repeatCount == 0) {
+                        mainFileList.SelectedIndex = 0;
+                    }
+                    else {
+                        mainFileList.SelectedIndex = repeatCount;
+                        repeatCount = 0;
+                    }
                 }
             ));
         }
