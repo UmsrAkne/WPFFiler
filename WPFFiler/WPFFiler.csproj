@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="models\ExFile.cs" />
     <Compile Include="models\FileList.cs" />
+    <Compile Include="models\FileListControlCommands.cs" />
     <Compile Include="viewModels\MainWindowViewModel.cs" />
     <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

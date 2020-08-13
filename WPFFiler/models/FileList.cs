@@ -8,18 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFFiler.models {
-    class FileList : BindableBase{
+    public class FileList : BindableBase{
 
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {
-            private get => files;
+            get => files;
             set => SetProperty(ref files, value);
         }
 
         private string currentDirectoryPath = "";
         public string CurrentDirectoryPath {
             get => currentDirectoryPath;
-            set => SetProperty(ref currentDirectoryPath, value);
+            set {
+                SetProperty(ref currentDirectoryPath, value);
+                reload();
+            }
+        }
+
+        private int selectedIndex = 0;
+        public int SelectedIndex {
+            get => selectedIndex;
+            set {
+                if(value >= 0 && value < Files.Count) {
+                    SetProperty(ref selectedIndex, value);
+                }
+            }
         }
 
         public FileList(string baseDirectoryPath) {
@@ -28,6 +41,8 @@ namespace WPFFiler.models {
         }
 
         public void reload() {
+            SelectedIndex = 0;
+
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
             string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
 

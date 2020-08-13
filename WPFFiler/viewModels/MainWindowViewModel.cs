@@ -14,5 +14,15 @@ namespace WPFFiler.viewModels {
             get;
             private set;
         } = new FileList(@"C:\");
+
+        public FileListControlCommands FileListControlCommands {
+            get;
+            private set;
+        }
+
+        public MainWindowViewModel() {
+            FileListControlCommands = new FileListControlCommands(FileList);
+        }
+
     }
 }

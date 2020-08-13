@@ -11,15 +11,61 @@
     <Window.DataContext>
         <dc:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.InputBindings>
+
+        <KeyBinding Key="Esc" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=FileListView}"
+                    />
+        <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=FileListView}"/>
+    </Window.InputBindings>
+    
     <StackPanel>
         
         <TextBox x:Name="urlBar"
                  Text="{Binding FileList.CurrentDirectoryPath}"
                  />
 
-        <Grid>
+        <Grid Focusable="True">
+            <Grid.InputBindings>
+                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
+                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
+                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
+                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
+                <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
+                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" />
+                <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
 
-            <ListView ItemsSource="{Binding FileList.Files}">
+                <!-- 数字キーを受け取るコマンド -->
+                <KeyBinding Key="D0" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D1" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D2" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D3" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D4" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+
+                <KeyBinding Key="D5" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D6" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D7" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D8" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                <KeyBinding Key="D9" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
+                
+            </Grid.InputBindings>
+
+            <ListView ItemsSource="{Binding FileList.Files}"
+                      SelectedIndex="{Binding FileList.SelectedIndex}"
+                      x:Name="FileListView"
+                      >
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
