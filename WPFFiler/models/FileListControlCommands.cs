@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.IO;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
@@ -87,6 +88,25 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand moveToParentDirectory;
+        public DelegateCommand MoveToParentDirectory {
+            get => moveToParentDirectory ?? (moveToParentDirectory = new DelegateCommand(
+                () => {
+                    if(repeatCount == 0) {
+                        mainFileList.CurrentDirectoryPath = new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent.FullName;
+                    }
+                    else {
+                        repeatCommand(() => {
+                            var parentDirectory = new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent;
+                            if(parentDirectory != null) {
+                                mainFileList.CurrentDirectoryPath = parentDirectory.FullName;
+                            }
+                        });
+                    }
+                },
+                () => new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent != null
+            ));
+        }
 
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
