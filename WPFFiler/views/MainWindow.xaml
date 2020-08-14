@@ -21,18 +21,37 @@
                     CommandParameter="{Binding ElementName=FileListView}"/>
     </Window.InputBindings>
     
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
         <TextBox x:Name="urlBar"
                  Text="{Binding FileList.CurrentDirectoryPath}"
+                 Grid.Row="0"
                  />
 
-        <Grid Focusable="True">
+        <Grid Focusable="True"
+              Grid.Row="1"
+              >
             <Grid.InputBindings>
-                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
-                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
-                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
-                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
+                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" 
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
+                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" 
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
+                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
+                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}"
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" />
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
@@ -65,6 +84,7 @@
             <ListView ItemsSource="{Binding FileList.Files}"
                       SelectedIndex="{Binding FileList.SelectedIndex}"
                       x:Name="FileListView"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                       >
 
                 <ListView.ItemContainerStyle>
@@ -129,5 +149,5 @@
             </ListView>
 
         </Grid>
-    </StackPanel>
+    </Grid>
 </Window>

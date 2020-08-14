@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
+using System.Windows.Controls;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
@@ -17,53 +18,69 @@ namespace WPFFiler.models {
             mainFileList = main;
         }
 
-        private DelegateCommand moveCursorToEndCommand;
-        public DelegateCommand MoveCursorToEndCommand {
-            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
-                () => {
+        private DelegateCommand<ListBox> moveCursorToEndCommand;
+        public DelegateCommand<ListBox> MoveCursorToEndCommand {
+            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
                     mainFileList.SelectedIndex = mainFileList.Files.Count - 1;
+                    listBox.ScrollIntoView(listBox.SelectedItem);
                 }
             ));
         }
 
-        private DelegateCommand moveCursorToHeadCommand;
-        public DelegateCommand MoveCursorToHeadCommand {
-            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
-                () => {
+        private DelegateCommand<ListBox> moveCursorToHeadCommand;
+        public DelegateCommand<ListBox> MoveCursorToHeadCommand {
+            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
                     if(repeatCount == 0) {
                         mainFileList.SelectedIndex = 0;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                        
                     }
                     else {
                         mainFileList.SelectedIndex = repeatCount;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
                         repeatCount = 0;
                     }
                 }
             ));
         }
 
-        private DelegateCommand downCursorCommand;
-        public DelegateCommand DownCursorCommand {
-            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
-                () => {
-                    if(repeatCount == 0) {
+        private DelegateCommand<ListBox> downCursorCommand;
+        public DelegateCommand<ListBox> DownCursorCommand {
+            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+
+                    var action = new Action(() => {
                         mainFileList.SelectedIndex++;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
                     }
                     else {
-                        repeatCommand(() => mainFileList.SelectedIndex++);
+                        repeatCommand(action);
                     }
                 }
             ));
         }
 
-        private DelegateCommand upCursorCommand;
-        public DelegateCommand UpCursorCommand {
-            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
-                () => {
-                    if(repeatCount == 0) {
+        private DelegateCommand<ListBox> upCursorCommand;
+        public DelegateCommand<ListBox> UpCursorCommand {
+            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+
+                    var action = new Action(() => {
                         mainFileList.SelectedIndex--;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
                     }
                     else {
-                        repeatCommand(() => mainFileList.SelectedIndex--);
+                        repeatCommand(action);
                     }
                 }
             ));
