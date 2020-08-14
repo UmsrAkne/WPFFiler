@@ -44,6 +44,14 @@
                             CommandParameter="{Binding ElementName=FileListView}"
                             />
 
+                <KeyBinding Key="D" Command="{Binding FileListControlCommands.PageDownCommand}" 
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
+                <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" 
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
                             CommandParameter="{Binding ElementName=FileListView}"
                             />
