@@ -86,6 +86,52 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand<ListBox> pageUpCommand;
+        public DelegateCommand<ListBox> PageUpCommand {
+            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+                    Action action = new Action(() => {
+                        var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
+
+                        // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
+                        int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
+                        mainFileList.SelectedIndex -= itemDisplayCapacity;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
+                    }
+                    else {
+                        repeatCommand(action);
+                    }
+                }
+            ));
+        }
+
+        private DelegateCommand<ListBox> pageDownCommand;
+        public DelegateCommand<ListBox> PageDownCommand {
+            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+                    Action action = new Action(() => {
+                        var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
+
+                        // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
+                        int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
+                        mainFileList.SelectedIndex += itemDisplayCapacity;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
+                    }
+                    else {
+                        repeatCommand(action);
+                    }
+                }
+            ));
+        }
+
         private DelegateCommand reloadCommand;
         public DelegateCommand ReloadCommand {
             get => reloadCommand ?? (reloadCommand = new DelegateCommand(
