@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
+using System.Windows.Controls;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
@@ -41,29 +42,41 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand downCursorCommand;
-        public DelegateCommand DownCursorCommand {
-            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
-                () => {
-                    if(repeatCount == 0) {
+        private DelegateCommand<ListBox> downCursorCommand;
+        public DelegateCommand<ListBox> DownCursorCommand {
+            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+
+                    var action = new Action(() => {
                         mainFileList.SelectedIndex++;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
                     }
                     else {
-                        repeatCommand(() => mainFileList.SelectedIndex++);
+                        repeatCommand(action);
                     }
                 }
             ));
         }
 
-        private DelegateCommand upCursorCommand;
-        public DelegateCommand UpCursorCommand {
-            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
-                () => {
-                    if(repeatCount == 0) {
+        private DelegateCommand<ListBox> upCursorCommand;
+        public DelegateCommand<ListBox> UpCursorCommand {
+            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
+
+                    var action = new Action(() => {
                         mainFileList.SelectedIndex--;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                    });
+
+                    if(repeatCount == 0) {
+                        action();
                     }
                     else {
-                        repeatCommand(() => mainFileList.SelectedIndex--);
+                        repeatCommand(action);
                     }
                 }
             ));
