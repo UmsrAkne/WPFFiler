@@ -92,6 +92,7 @@ namespace WPFFiler.models {
                 (listBox) => {
                     Action action = new Action(() => {
                         if(mainFileList.Files.Count > 0) {
+                            listBox.UpdateLayout();
                             var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
 
                             // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
@@ -117,12 +118,14 @@ namespace WPFFiler.models {
                 (listBox) => {
                     Action action = new Action(() => {
                         if(mainFileList.Files.Count > 0) {
+                            listBox.UpdateLayout();
                             var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
 
                             // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
                             int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
                             mainFileList.SelectedIndex += itemDisplayCapacity;
                             listBox.ScrollIntoView(listBox.SelectedItem);
+                            System.Diagnostics.Debug.WriteLine(mainFileList.SelectedIndex);
                         }
                     });
 

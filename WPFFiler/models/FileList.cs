@@ -29,9 +29,17 @@ namespace WPFFiler.models {
         public int SelectedIndex {
             get => selectedIndex;
             set {
-                if(value >= 0 && value < Files.Count) {
-                    SetProperty(ref selectedIndex, value);
+                if(value >= Files.Count) {
+                    SetProperty(ref selectedIndex, Files.Count - 1);
+                    return;
                 }
+
+                if (value <= 0) {
+                    SetProperty(ref selectedIndex, 0);
+                    return;
+                }
+
+                SetProperty(ref selectedIndex, value);
             }
         }
 
