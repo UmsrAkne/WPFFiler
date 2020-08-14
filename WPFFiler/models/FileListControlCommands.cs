@@ -95,13 +95,17 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand openDirectoryCommand;
-        public DelegateCommand OpenDirectoryCommand {
-            get => openDirectoryCommand ?? (openDirectoryCommand = new DelegateCommand(
-                () => {
+        private DelegateCommand<ListBox> openDirectoryCommand;
+        public DelegateCommand<ListBox> OpenDirectoryCommand {
+            get => openDirectoryCommand ?? (openDirectoryCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
                     mainFileList.CurrentDirectoryPath = mainFileList.Files[mainFileList.SelectedIndex].Content.FullName;
+
+                    if(mainFileList.Files.Count > 0) {
+                        listBox.ScrollIntoView(listBox.Items.GetItemAt(0));
+                    }
                 },
-                () => mainFileList.Files[mainFileList.SelectedIndex].IsDirectory
+                (listBox) => mainFileList.Files[mainFileList.SelectedIndex].IsDirectory
             ));
         }
 

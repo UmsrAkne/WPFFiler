@@ -53,7 +53,10 @@
                             />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
-                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" />
+                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" 
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
 
                 <!-- 数字キーを受け取るコマンド -->
