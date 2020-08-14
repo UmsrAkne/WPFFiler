@@ -18,24 +18,28 @@ namespace WPFFiler.models {
             mainFileList = main;
         }
 
-        private DelegateCommand moveCursorToEndCommand;
-        public DelegateCommand MoveCursorToEndCommand {
-            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
-                () => {
+        private DelegateCommand<ListBox> moveCursorToEndCommand;
+        public DelegateCommand<ListBox> MoveCursorToEndCommand {
+            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
                     mainFileList.SelectedIndex = mainFileList.Files.Count - 1;
+                    listBox.ScrollIntoView(listBox.SelectedItem);
                 }
             ));
         }
 
-        private DelegateCommand moveCursorToHeadCommand;
-        public DelegateCommand MoveCursorToHeadCommand {
-            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
-                () => {
+        private DelegateCommand<ListBox> moveCursorToHeadCommand;
+        public DelegateCommand<ListBox> MoveCursorToHeadCommand {
+            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand<ListBox>(
+                (listBox) => {
                     if(repeatCount == 0) {
                         mainFileList.SelectedIndex = 0;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
+                        
                     }
                     else {
                         mainFileList.SelectedIndex = repeatCount;
+                        listBox.ScrollIntoView(listBox.SelectedItem);
                         repeatCount = 0;
                     }
                 }

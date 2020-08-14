@@ -44,8 +44,14 @@
                             CommandParameter="{Binding ElementName=FileListView}"
                             />
 
-                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
-                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
+                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
+                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}"
+                            CommandParameter="{Binding ElementName=FileListView}"
+                            />
+
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" />
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
