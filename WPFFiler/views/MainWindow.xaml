@@ -26,11 +26,16 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <TextBox x:Name="urlBar"
                  Text="{Binding FileList.CurrentDirectoryPath}"
                  Grid.Row="0"
-                 />
+                 >
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding FileListControlCommands.MoveToDirectory}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}"/>
+            </TextBox.InputBindings>
+        </TextBox>
 
         <Grid Focusable="True"
               Grid.Row="1"
