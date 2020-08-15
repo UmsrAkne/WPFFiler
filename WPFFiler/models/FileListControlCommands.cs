@@ -182,6 +182,14 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand<string> moveToDirectory;
+        public DelegateCommand<string> MoveToDirectory {
+            get => moveToDirectory ?? (moveToDirectory = new DelegateCommand<string>(
+                path => mainFileList.CurrentDirectoryPath = path,
+                path => new DirectoryInfo(path).Exists
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(

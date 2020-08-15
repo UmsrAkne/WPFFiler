@@ -20,8 +20,10 @@ namespace WPFFiler.models {
         public string CurrentDirectoryPath {
             get => currentDirectoryPath;
             set {
-                SetProperty(ref currentDirectoryPath, value);
-                reload();
+                if(Directory.Exists(value)) {
+                    SetProperty(ref currentDirectoryPath, value);
+                    reload();
+                }
             }
         }
 
