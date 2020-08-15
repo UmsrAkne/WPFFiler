@@ -19,6 +19,11 @@
                     />
         <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
                     CommandParameter="{Binding ElementName=FileListView}"/>
+
+        <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=urlBar}"
+                    />
+
     </Window.InputBindings>
     
     <Grid>
