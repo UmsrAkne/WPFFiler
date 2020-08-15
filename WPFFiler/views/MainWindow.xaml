@@ -20,7 +20,7 @@
         <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
                     CommandParameter="{Binding ElementName=FileListView}"/>
 
-        <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
+        <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusToURLBarCommandCommand}"
                     CommandParameter="{Binding ElementName=urlBar}"
                     />
 
