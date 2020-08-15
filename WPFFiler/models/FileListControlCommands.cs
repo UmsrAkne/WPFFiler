@@ -200,6 +200,17 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand<object> focusToURLBarCommandCommand;
+        public DelegateCommand<object> FocusToURLBarCommandCommand { 
+            get => focusToURLBarCommandCommand ?? (focusToURLBarCommandCommand = new DelegateCommand<object>(
+                (object param) => {
+                    var textBox = (TextBox)param;
+                    textBox.Focus();
+                    textBox.SelectAll();
+                }
+            ));
+        }
+
         private DelegateCommand<object> setRepeatCountCommand;
         public DelegateCommand<object> SetRepeatCountCommand {
             get => setRepeatCountCommand ?? (setRepeatCountCommand = new DelegateCommand<object>(
