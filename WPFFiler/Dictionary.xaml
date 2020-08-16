@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFFiler">
+    
+    <ListView ItemsSource="{Binding FileList.Files}"
+              SelectedIndex="{Binding FileList.SelectedIndex}"
+              x:Name="FileListView"
+              ScrollViewer.VerticalScrollBarVisibility="Visible"
+              x:Key="listViewResource"
+              >
+
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="true" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="Template">
+
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border x:Name="Border"
+                                      Padding="2"
+                                      SnapsToDevicePixels="true"
+                                      Background="Transparent">
+
+                                <VisualStateManager.VisualStateGroups>
+
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected" />
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                              Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0"
+                                                                         Value="LightBlue" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="SelectedUnfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                          Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0"
+                                                                     Value="LightGray" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ListView.ItemContainerStyle>
+
+        <ListView.View>
+            <GridView>
+                <GridView.Columns>
+                    <GridViewColumn Header="name"
+                                    DisplayMemberBinding="{Binding Content.Name}"
+                                    />
+                </GridView.Columns>
+            </GridView>
+        </ListView.View>
+    </ListView>
+
+    <ListBox x:Key="listBoxResource"
+             ItemsSource="{Binding FileList.Files}"
+             x:Shared="false"
+             SelectedIndex="{Binding FileList.SelectedIndex}"
+             >
+
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Content.Name}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+
+</ResourceDictionary>

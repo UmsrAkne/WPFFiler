@@ -12,13 +12,22 @@
         <dc:MainWindowViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Window.InputBindings>
 
         <KeyBinding Key="Esc" Command="{Binding FileListControlCommands.FocusCommand}"
-                    CommandParameter="{Binding ElementName=FileListView}"
+                    CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                     />
         <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
-                    CommandParameter="{Binding ElementName=FileListView}"/>
+                    CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
+                    />
 
         <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusToURLBarCommandCommand}"
                     CommandParameter="{Binding ElementName=urlBar}"
@@ -47,32 +56,32 @@
               >
             <Grid.InputBindings>
                 <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="D" Command="{Binding FileListControlCommands.PageDownCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}"
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
@@ -102,73 +111,30 @@
                 
             </Grid.InputBindings>
 
-            <ListView ItemsSource="{Binding FileList.Files}"
-                      SelectedIndex="{Binding FileList.SelectedIndex}"
-                      x:Name="FileListView"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      >
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="SnapsToDevicePixels"
-                                Value="true" />
-                        <Setter Property="OverridesDefaultStyle"
-                                Value="true" />
-                        <Setter Property="Template">
+            <ContentControl x:Name="itemsControlContainer">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
 
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <Border x:Name="Border"
-                                              Padding="2"
-                                              SnapsToDevicePixels="true"
-                                              Background="Transparent">
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                                         Value="ListView"
+                                         >
+                                <Setter Property="Content" Value="{StaticResource listViewResource}"/>
+                            </DataTrigger>
 
-                                        <VisualStateManager.VisualStateGroups>
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                                         Value="ListBox"
+                                         >
+                                <Setter Property="Content" Value="{StaticResource listBoxResource}"/>
+                            </DataTrigger>
 
-                                            <VisualStateGroup x:Name="SelectionStates">
-                                                <VisualState x:Name="Unselected" />
-                                                <VisualState x:Name="Selected">
-                                                    <Storyboard>
-                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                                                      Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                            <EasingColorKeyFrame KeyTime="0"
-                                                                                 Value="LightBlue" />
-                                                        </ColorAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-
-                                                <VisualState x:Name="SelectedUnfocused">
-                                                    <Storyboard>
-                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                                                  Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                            <EasingColorKeyFrame KeyTime="0"
-                                                                             Value="LightGray" />
-                                                        </ColorAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        </Style.Triggers>
                     </Style>
+                </ContentControl.Style>
 
-                </ListView.ItemContainerStyle>
-
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Header="name"
-                                            DisplayMemberBinding="{Binding Content.Name}"
-                                            />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
+            </ContentControl>
+            
         </Grid>
     </Grid>
 </Window>
