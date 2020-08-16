@@ -7,8 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+public enum ViewStyle {
+    ListView,
+    ListBox
+}
+
 namespace WPFFiler.models {
     public class FileList : BindableBase{
+
+        private ViewStyle viewStyle = ViewStyle.ListView;
+        public ViewStyle ViewStyle {
+            get => viewStyle;
+            set => SetProperty(ref viewStyle, value);
+        }
 
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {
