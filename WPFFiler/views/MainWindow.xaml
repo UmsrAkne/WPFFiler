@@ -23,10 +23,11 @@
     <Window.InputBindings>
 
         <KeyBinding Key="Esc" Command="{Binding FileListControlCommands.FocusCommand}"
-                    CommandParameter="{Binding ElementName=FileListView}"
+                    CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                     />
         <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
-                    CommandParameter="{Binding ElementName=FileListView}"/>
+                    CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
+                    />
 
         <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusToURLBarCommandCommand}"
                     CommandParameter="{Binding ElementName=urlBar}"
@@ -55,32 +56,32 @@
               >
             <Grid.InputBindings>
                 <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="D" Command="{Binding FileListControlCommands.PageDownCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}"
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" 
-                            CommandParameter="{Binding ElementName=FileListView}"
+                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
