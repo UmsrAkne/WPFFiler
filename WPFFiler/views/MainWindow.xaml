@@ -112,8 +112,27 @@
             </Grid.InputBindings>
 
 
-            <ContentControl x:Name="itemsControlContainer"
-                            Content="{StaticResource listViewResource}">
+            <ContentControl x:Name="itemsControlContainer">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                                         Value="ListView"
+                                         >
+                                <Setter Property="Content" Value="{StaticResource listViewResource}"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                                         Value="ListBox"
+                                         >
+                                <Setter Property="Content" Value="{StaticResource listBoxResource}"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+
             </ContentControl>
             
         </Grid>
