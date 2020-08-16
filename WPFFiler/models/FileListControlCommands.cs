@@ -125,7 +125,6 @@ namespace WPFFiler.models {
                             int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
                             mainFileList.SelectedIndex += itemDisplayCapacity;
                             listBox.ScrollIntoView(listBox.SelectedItem);
-                            System.Diagnostics.Debug.WriteLine(mainFileList.SelectedIndex);
                         }
                     });
 
