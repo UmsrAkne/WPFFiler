@@ -70,4 +70,20 @@
         </ListView.View>
     </ListView>
 
+    <ListBox x:Key="listBoxResource"
+             ItemsSource="{Binding FileList.Files}"
+             x:Shared="false"
+             SelectedIndex="{Binding FileList.SelectedIndex}"
+             >
+
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Content.Name}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+
 </ResourceDictionary>
