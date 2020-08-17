@@ -189,6 +189,17 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand createDirectoryCommand;
+        public DelegateCommand CreateDirectoryCommand {
+            get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
+                () => {
+                    ExFile directory = new ExFile(mainFileList.CurrentDirectoryPath + @"\testDirectory");
+                    directory.createDirectory();
+                    mainFileList.reload();
+                }
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(

@@ -78,6 +78,9 @@
                             />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
+
+                <KeyBinding Gesture="CTRL+SHIFT+N" Command="{Binding FileListControlCommands.CreateDirectoryCommand}"/>
+
                 <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" 
                             CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
