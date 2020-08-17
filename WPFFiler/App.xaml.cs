@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Prism.Ioc;
-using WPFFiler.viewModels;
-using WPFFiler.views;
+using WPFFiler.ViewModels;
+using WPFFiler.Views;
 
 namespace WPFFiler {
     /// <summary>

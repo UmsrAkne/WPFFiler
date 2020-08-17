@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFFiler.viewModels {
+namespace WPFFiler.ViewModels {
     class InputDialogViewModel : BindableBase, IDialogAware {
         public string Title => "inputDialog";
 

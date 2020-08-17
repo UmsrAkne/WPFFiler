@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFFiler.views {
+namespace WPFFiler.Views {
     /// <summary>
     /// InputDialog.xaml の相互作用ロジック
     /// </summary>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WPFFiler.models;
 using Prism.Services.Dialogs;
 
-namespace WPFFiler.viewModels {
+namespace WPFFiler.ViewModels {
     class MainWindowViewModel : BindableBase {
         public FileList FileList {
             get;
