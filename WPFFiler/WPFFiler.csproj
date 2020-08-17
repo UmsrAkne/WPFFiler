@@ -90,6 +90,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="views\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,7 +105,11 @@
     <Compile Include="models\ExFile.cs" />
     <Compile Include="models\FileList.cs" />
     <Compile Include="models\FileListControlCommands.cs" />
+    <Compile Include="viewModels\InputDialogViewModel.cs" />
     <Compile Include="viewModels\MainWindowViewModel.cs" />
+    <Compile Include="views\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
