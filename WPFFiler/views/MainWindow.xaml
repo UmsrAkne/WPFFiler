@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFFiler"
         xmlns:dc="clr-namespace:WPFFiler.viewModels"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
-    <Window.DataContext>
-        <dc:MainWindowViewModel/>
-    </Window.DataContext>
 
     <Window.Resources>
         <ResourceDictionary>

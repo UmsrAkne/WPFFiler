@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFFiler.models;
+using Prism.Services.Dialogs;
 
 namespace WPFFiler.viewModels {
     class MainWindowViewModel : BindableBase {
@@ -20,7 +21,10 @@ namespace WPFFiler.viewModels {
             private set;
         }
 
-        public MainWindowViewModel() {
+        private IDialogService dialogService;
+
+        public MainWindowViewModel(IDialogService dialogService) {
+            this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(FileList);
         }
 
