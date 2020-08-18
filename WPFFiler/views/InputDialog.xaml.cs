@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 
 namespace WPFFiler.Views {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// InputDialog.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class InputDialog : UserControl {
+        public InputDialog() {
             InitializeComponent();
         }
     }

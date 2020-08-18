@@ -7,15 +7,21 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Controls;
+using Prism.Services.Dialogs;
+using WPFFiler.Views;
+using WPFFiler.ViewModels;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
 
         private int repeatCount = 0;
         private FileList mainFileList;
+        private IDialogService dialogService; 
 
-        public FileListControlCommands(FileList main) {
+
+        public FileListControlCommands(IDialogService ds, FileList main) {
             mainFileList = main;
+            dialogService = ds;
         }
 
         private DelegateCommand<ListBox> moveCursorToEndCommand;
@@ -186,6 +192,26 @@ namespace WPFFiler.models {
             get => moveToDirectory ?? (moveToDirectory = new DelegateCommand<string>(
                 path => mainFileList.CurrentDirectoryPath = path,
                 path => new DirectoryInfo(path).Exists
+            ));
+        }
+
+        private DelegateCommand createDirectoryCommand;
+        public DelegateCommand CreateDirectoryCommand {
+            get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
+                () => {
+                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(),
+                        (IDialogResult result) => {
+                            System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
+                            if(result != null) {
+                                string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
+                                if (!string.IsNullOrEmpty(r)) {
+                                    ExFile directory = new ExFile(mainFileList.CurrentDirectoryPath + "\\" + r);
+                                    directory.createDirectory();
+                                    mainFileList.reload();
+                                }
+                            }
+                        });
+                }
             ));
         }
 

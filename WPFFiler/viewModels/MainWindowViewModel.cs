@@ -7,21 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFFiler.models;
+using Prism.Services.Dialogs;
 
-namespace WPFFiler.viewModels {
+namespace WPFFiler.ViewModels {
     class MainWindowViewModel : BindableBase {
         public FileList FileList {
             get;
             private set;
         } = new FileList(@"C:\");
 
+        private FileListControlCommands fileListControlCommands;
         public FileListControlCommands FileListControlCommands {
-            get;
-            private set;
+            get => fileListControlCommands;
+            set => SetProperty(ref fileListControlCommands, value);
         }
 
-        public MainWindowViewModel() {
-            FileListControlCommands = new FileListControlCommands(FileList);
+        private IDialogService dialogService;
+
+        public MainWindowViewModel(IDialogService dialogService) {
+            this.dialogService = dialogService;
+            FileListControlCommands = new FileListControlCommands(dialogService, FileList);
         }
 
     }
