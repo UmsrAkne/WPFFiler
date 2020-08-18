@@ -215,6 +215,16 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand toggleMarkCommand;
+        public DelegateCommand ToggleMarkCommand {
+            get => toggleMarkCommand ?? (toggleMarkCommand = new DelegateCommand(
+                () => {
+                    var file = mainFileList.Files[mainFileList.SelectedIndex];
+                    file.IsMarked = !file.IsMarked;
+                }
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
