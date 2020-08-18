@@ -16,16 +16,17 @@ namespace WPFFiler.ViewModels {
             private set;
         } = new FileList(@"C:\");
 
+        private FileListControlCommands fileListControlCommands;
         public FileListControlCommands FileListControlCommands {
-            get;
-            private set;
+            get => fileListControlCommands;
+            set => SetProperty(ref fileListControlCommands, value);
         }
 
         private IDialogService dialogService;
 
         public MainWindowViewModel(IDialogService dialogService) {
             this.dialogService = dialogService;
-            FileListControlCommands = new FileListControlCommands(FileList);
+            FileListControlCommands = new FileListControlCommands(dialogService, FileList);
         }
 
     }

@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Controls;
+using Prism.Services.Dialogs;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
 
         private int repeatCount = 0;
         private FileList mainFileList;
+        private IDialogService dialogService; 
 
-        public FileListControlCommands(FileList main) {
+
+        public FileListControlCommands(IDialogService ds, FileList main) {
             mainFileList = main;
+            dialogService = ds;
         }
 
         private DelegateCommand<ListBox> moveCursorToEndCommand;
