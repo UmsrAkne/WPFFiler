@@ -9,9 +9,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
     <Grid>
+
+        <Grid.InputBindings>
+            <KeyBinding Key="Return"
+                        Command="{Binding FinishCommand}"
+                        />
+        </Grid.InputBindings>
+
         <TextBox x:Name="inputTextBox"
                  MaxLines="1"
                  AcceptsReturn="False"
+                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  />
     </Grid>
 </UserControl>

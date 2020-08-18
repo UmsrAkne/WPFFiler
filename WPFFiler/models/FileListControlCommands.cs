@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.IO;
 using System.Windows.Controls;
 using Prism.Services.Dialogs;
+using WPFFiler.Views;
+using WPFFiler.ViewModels;
 
 namespace WPFFiler.models {
     public class FileListControlCommands {
@@ -197,9 +199,18 @@ namespace WPFFiler.models {
         public DelegateCommand CreateDirectoryCommand {
             get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
                 () => {
-                    ExFile directory = new ExFile(mainFileList.CurrentDirectoryPath + @"\testDirectory");
-                    directory.createDirectory();
-                    mainFileList.reload();
+                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(),
+                        (IDialogResult result) => {
+                            System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
+                            if(result != null) {
+                                string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
+                                if (!string.IsNullOrEmpty(r)) {
+                                    ExFile directory = new ExFile(mainFileList.CurrentDirectoryPath + "\\" + r);
+                                    directory.createDirectory();
+                                    mainFileList.reload();
+                                }
+                            }
+                        });
                 }
             ));
         }
