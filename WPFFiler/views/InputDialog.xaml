@@ -21,6 +21,8 @@
                  MaxLines="1"
                  AcceptsReturn="False"
                  Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                 Width="400"
+                 Height="auto"
                  />
     </Grid>
 </UserControl>
