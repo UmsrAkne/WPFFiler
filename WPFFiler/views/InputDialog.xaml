@@ -7,8 +7,9 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="100" d:DesignWidth="300"
+             >
+    <Grid FocusManager.FocusedElement="{Binding ElementName=inputTextBox}" >
 
         <Grid.InputBindings>
             <KeyBinding Key="Return"
