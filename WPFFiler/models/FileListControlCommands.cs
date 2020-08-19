@@ -153,9 +153,9 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> openDirectoryCommand;
-        public DelegateCommand<ListBox> OpenDirectoryCommand {
-            get => openDirectoryCommand ?? (openDirectoryCommand = new DelegateCommand<ListBox>(
+        private DelegateCommand<ListBox> openCommand;
+        public DelegateCommand<ListBox> OpenCommand {
+            get => openCommand ?? (openCommand = new DelegateCommand<ListBox>(
                 (listBox) => {
                     mainFileList.CurrentDirectoryPath = mainFileList.Files[mainFileList.SelectedIndex].Content.FullName;
 
