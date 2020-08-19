@@ -87,6 +87,10 @@
 
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
 
+                <KeyBinding Key="Space" Command="{Binding FileListControlCommands.ToggleMarkCommand}" />
+                <KeyBinding Key="M" Command="{Binding FileListControlCommands.MarkCommand}" />
+                <KeyBinding Key="M" Modifiers="Shift" Command="{Binding FileListControlCommands.UnmarkCommand}" />
+
                 <!-- 数字キーを受け取るコマンド -->
                 <KeyBinding Key="D0" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFFiler.models {
-    public class ExFile {
+    public class ExFile : BindableBase{
 
         private FileSystemInfo content;
         public FileSystemInfo Content {
@@ -22,6 +23,12 @@ namespace WPFFiler.models {
             set {
                 currentPath = value;
             }
+        }
+
+        private bool isMarked = false;
+        public bool IsMarked {
+            get => isMarked;
+            set => SetProperty(ref isMarked, value);
         }
 
         /// <summary>

@@ -215,6 +215,56 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand toggleMarkCommand;
+        public DelegateCommand ToggleMarkCommand {
+            get => toggleMarkCommand ?? (toggleMarkCommand = new DelegateCommand(
+                () => {
+                    var file = mainFileList.Files[mainFileList.SelectedIndex];
+                    file.IsMarked = !file.IsMarked;
+                }
+            ));
+        }
+
+        private DelegateCommand markCommand;
+        public DelegateCommand MarkCommand {
+            get => markCommand ?? (markCommand = new DelegateCommand(
+                () => {
+                    Action action = () => {
+                        var file = mainFileList.Files[mainFileList.SelectedIndex];
+                        file.IsMarked = true;
+                        mainFileList.SelectedIndex++;
+                    };
+
+                    if(repeatCount == 0) {
+                        action();
+                    }
+                    else {
+                        repeatCommand(action);
+                    }
+                }
+            ));
+        }
+
+        private DelegateCommand unmarkCommand;
+        public DelegateCommand UnmarkCommand {
+            get => unmarkCommand ?? (unmarkCommand = new DelegateCommand(
+                () => {
+                    Action action = () => {
+                        var file = mainFileList.Files[mainFileList.SelectedIndex];
+                        file.IsMarked = false;
+                        mainFileList.SelectedIndex++;
+                    };
+
+                    if(repeatCount == 0) {
+                        action();
+                    }
+                    else {
+                        repeatCommand(action);
+                    }
+                }
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
