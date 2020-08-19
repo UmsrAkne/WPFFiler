@@ -153,17 +153,23 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> openDirectoryCommand;
-        public DelegateCommand<ListBox> OpenDirectoryCommand {
-            get => openDirectoryCommand ?? (openDirectoryCommand = new DelegateCommand<ListBox>(
+        private DelegateCommand<ListBox> openCommand;
+        public DelegateCommand<ListBox> OpenCommand {
+            get => openCommand ?? (openCommand = new DelegateCommand<ListBox>(
                 (listBox) => {
-                    mainFileList.CurrentDirectoryPath = mainFileList.Files[mainFileList.SelectedIndex].Content.FullName;
+                    ExFile currentFile = (ExFile)mainFileList.Files[mainFileList.SelectedIndex];
+                    if (currentFile.IsDirectory) {
+                        mainFileList.CurrentDirectoryPath = currentFile.Content.FullName;
 
-                    if(mainFileList.Files.Count > 0) {
-                        listBox.ScrollIntoView(listBox.Items.GetItemAt(0));
+                        // ディレクトリの中身が存在する場合はスクロール処理も行う
+                        if(mainFileList.Files.Count > 0) {
+                            listBox.ScrollIntoView(listBox.Items.GetItemAt(0));
+                        }
                     }
-                },
-                (listBox) => mainFileList.Files[mainFileList.SelectedIndex].IsDirectory
+                    else {
+                        System.Diagnostics.Process.Start(currentFile.Content.FullName);
+                    }
+                }
             ));
         }
 

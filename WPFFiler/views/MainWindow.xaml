@@ -81,7 +81,7 @@
 
                 <KeyBinding Gesture="CTRL+SHIFT+N" Command="{Binding FileListControlCommands.CreateDirectoryCommand}"/>
 
-                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenDirectoryCommand}" 
+                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenCommand}" 
                             CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                             />
 
