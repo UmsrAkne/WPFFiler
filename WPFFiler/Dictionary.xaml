@@ -22,7 +22,19 @@
                             <Border x:Name="Border"
                                       Padding="2"
                                       SnapsToDevicePixels="true"
-                                      Background="Transparent">
+                                      >
+
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},Path=Content.IsMarked}"
+                                                         Value="True">
+                                                <Setter Property="Background" Value="LightCoral" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
+                                </Border.Style>
 
                                 <VisualStateManager.VisualStateGroups>
 
