@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.FileIO;
 
 namespace WPFFiler.models {
     public class ExFile : BindableBase{
@@ -74,7 +75,20 @@ namespace WPFFiler.models {
         }
 
         public void delete() {
-            Content.Delete();
+            if (IsDirectory) {
+                FileSystem.DeleteDirectory(
+                    Content.FullName,
+                    UIOption.OnlyErrorDialogs,
+                    RecycleOption.SendToRecycleBin
+                );
+            }
+            else {
+                FileSystem.DeleteFile(
+                    Content.FullName,
+                    UIOption.OnlyErrorDialogs,
+                    RecycleOption.SendToRecycleBin
+                );
+            }
         }
 
     }
