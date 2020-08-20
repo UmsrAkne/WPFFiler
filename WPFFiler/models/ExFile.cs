@@ -73,5 +73,9 @@ namespace WPFFiler.models {
             Content = d;
         }
 
+        public void delete() {
+            Content.Delete();
+        }
+
     }
 }
