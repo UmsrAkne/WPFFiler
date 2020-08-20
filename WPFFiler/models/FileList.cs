@@ -81,5 +81,11 @@ namespace WPFFiler.models {
 
             SelectedIndex = 0;
         }
+
+        public List<ExFile> MakedFiles {
+            get {
+                return Files.Where((f) => f.IsMarked).ToList();
+            }
+        }
     }
 }

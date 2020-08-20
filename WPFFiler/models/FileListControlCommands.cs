@@ -221,6 +221,17 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand deleteMarkedFilesCommand;
+        public DelegateCommand DeleteMarkedFilesCommand {
+            get => deleteMarkedFilesCommand ?? (deleteMarkedFilesCommand = new DelegateCommand(
+                () => {
+                    mainFileList.MakedFiles.ForEach((ExFile f) => { f.delete(); });
+                    mainFileList.reload();
+                    mainFileList.SelectedIndex = 0;
+                }
+            ));
+        }
+
         private DelegateCommand toggleMarkCommand;
         public DelegateCommand ToggleMarkCommand {
             get => toggleMarkCommand ?? (toggleMarkCommand = new DelegateCommand(
