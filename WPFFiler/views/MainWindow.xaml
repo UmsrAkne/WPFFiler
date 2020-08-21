@@ -192,8 +192,8 @@
 
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <ListView ItemsSource="{Binding FileList.Files}"
-                                                  SelectedIndex="{Binding FileList.SelectedIndex}"
+                                        <ListView ItemsSource="{Binding SubFileList.Files}"
+                                                  SelectedIndex="{Binding SubFileList.SelectedIndex}"
                                                   >
                                             <ListView.Style>
                                                 <Style TargetType="ListView">

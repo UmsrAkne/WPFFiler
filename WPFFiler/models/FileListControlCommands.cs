@@ -16,11 +16,13 @@ namespace WPFFiler.models {
 
         private int repeatCount = 0;
         private FileList mainFileList;
+        private FileList subFileList;
         private IDialogService dialogService; 
 
 
-        public FileListControlCommands(IDialogService ds, FileList main) {
+        public FileListControlCommands(IDialogService ds, FileList main, FileList sub) {
             mainFileList = main;
+            subFileList = sub;
             dialogService = ds;
         }
 

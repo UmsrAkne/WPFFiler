@@ -16,6 +16,11 @@ namespace WPFFiler.ViewModels {
             private set;
         } = new FileList(@"C:\");
 
+        public FileList SubFileList {
+            get;
+            private set;
+        } = new FileList(@"C:\");
+
         private FileListControlCommands fileListControlCommands;
         public FileListControlCommands FileListControlCommands {
             get => fileListControlCommands;
@@ -26,7 +31,7 @@ namespace WPFFiler.ViewModels {
 
         public MainWindowViewModel(IDialogService dialogService) {
             this.dialogService = dialogService;
-            FileListControlCommands = new FileListControlCommands(dialogService, FileList);
+            FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
         }
 
     }
