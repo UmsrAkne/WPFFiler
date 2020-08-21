@@ -329,6 +329,27 @@ namespace WPFFiler.models {
         }
 
         /// <summary>
+        /// 現在キーボードフォーカスが当たっている ListView を取得します。
+        /// </summary>
+        /// <returns> ListView がフォーカスを持っていない場合は null を返します。</returns>
+        private ListView getFocusingListView() {
+            if (Keyboard.FocusedElement == null) {
+                return null;
+            }
+
+            var obj = (System.Windows.DependencyObject)Keyboard.FocusedElement;
+            while(!(obj is ListView)) {
+                obj = System.Windows.Media.VisualTreeHelper.GetParent(obj);
+
+                if(obj == null) {
+                    break;
+                }
+            }
+
+            return (obj != null) ? (ListView)obj : null;
+        }
+
+        /// <summary>
         /// repeatCount の回数だけ action を実行し、実行後に repeatCount を 0 にセットします
         /// </summary>
         /// <param name="action"></param>
