@@ -133,10 +133,28 @@
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListView"
                                          >
+
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <ListView>
-                                            
+                                        <ListView ItemsSource="{Binding FileList.Files}"
+                                                  SelectedIndex="{Binding FileList.SelectedIndex}"
+                                                  >
+                                            <ListView.Style>
+                                                <Style TargetType="ListView">
+                                                    <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemContainerStyle}">
+                                                    </Setter>
+                                                </Style>
+                                            </ListView.Style>
+
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridView.Columns>
+                                                        <GridViewColumn Header="name"
+                                                                        DisplayMemberBinding="{Binding Content.Name}"
+                                                                        />
+                                                    </GridView.Columns>
+                                                </GridView>
+                                            </ListView.View>
                                         </ListView>
                                     </Setter.Value>
                                 </Setter>
@@ -163,6 +181,7 @@
             <ContentControl x:Name="subItemsContentContorol"
                             Grid.Column="1"
                             >
+
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
                         <Style.Triggers>
@@ -170,10 +189,28 @@
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListView"
                                          >
+
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <ListView>
-                                            
+                                        <ListView ItemsSource="{Binding FileList.Files}"
+                                                  SelectedIndex="{Binding FileList.SelectedIndex}"
+                                                  >
+                                            <ListView.Style>
+                                                <Style TargetType="ListView">
+                                                    <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemContainerStyle}">
+                                                    </Setter>
+                                                </Style>
+                                            </ListView.Style>
+
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridView.Columns>
+                                                        <GridViewColumn Header="name"
+                                                                        DisplayMemberBinding="{Binding Content.Name}"
+                                                                        />
+                                                    </GridView.Columns>
+                                                </GridView>
+                                            </ListView.View>
                                         </ListView>
                                     </Setter.Value>
                                 </Setter>
