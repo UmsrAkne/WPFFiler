@@ -133,13 +133,25 @@
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListView"
                                          >
-                                <Setter Property="Content" Value="{StaticResource listViewResource}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <ListView>
+                                            
+                                        </ListView>
+                                    </Setter.Value>
+                                </Setter>
                             </DataTrigger>
 
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListBox"
                                          >
-                                <Setter Property="Content" Value="{StaticResource listBoxResource}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <ListBox>
+
+                                        </ListBox>
+                                    </Setter.Value>
+                                </Setter>
                             </DataTrigger>
 
                         </Style.Triggers>
@@ -158,13 +170,25 @@
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListView"
                                          >
-                                <Setter Property="Content" Value="{StaticResource listViewResource}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <ListView>
+                                            
+                                        </ListView>
+                                    </Setter.Value>
+                                </Setter>
                             </DataTrigger>
 
                             <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
                                          Value="ListBox"
                                          >
-                                <Setter Property="Content" Value="{StaticResource listBoxResource}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <ListBox>
+
+                                        </ListBox>
+                                    </Setter.Value>
+                                </Setter>
                             </DataTrigger>
 
                         </Style.Triggers>
