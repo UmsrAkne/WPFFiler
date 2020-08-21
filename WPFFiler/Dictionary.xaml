@@ -2,102 +2,76 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPFFiler">
     
-    <ListView ItemsSource="{Binding FileList.Files}"
-              SelectedIndex="{Binding FileList.SelectedIndex}"
-              x:Name="FileListView"
-              ScrollViewer.VerticalScrollBarVisibility="Visible"
-              x:Key="listViewResource"
-              >
 
-        <ListView.ItemContainerStyle>
-            <Style TargetType="ListViewItem">
-                <Setter Property="SnapsToDevicePixels"
-                        Value="true" />
-                <Setter Property="OverridesDefaultStyle"
-                        Value="true" />
-                <Setter Property="Template">
+    <Style TargetType="ListViewItem"
+           x:Key="ListViewItemContainerStyle"
+           >
 
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListViewItem">
-                            <Border x:Name="Border"
-                                      Padding="2"
-                                      SnapsToDevicePixels="true"
-                                      BorderThickness="2,1,1,1"
-                                      >
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="Template">
 
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},Path=Content.IsMarked}"
-                                                         Value="True">
-                                                <Setter Property="Background" Value="LightCoral" />
-                                                <Setter Property="BorderBrush" Value="LightCoral" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                    </Style>
-                                </Border.Style>
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border x:Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true"
+                              BorderThickness="2,1,1,1"
+                              >
 
-                                <VisualStateManager.VisualStateGroups>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem},Path=Content.IsMarked}"
+                                                 Value="True">
+                                        <Setter Property="Background" Value="LightCoral" />
+                                        <Setter Property="BorderBrush" Value="LightCoral" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </Border.Style>
 
-                                    <VisualStateGroup x:Name="SelectionStates">
-                                        <VisualState x:Name="Unselected" />
-                                        <VisualState x:Name="Selected">
-                                            <Storyboard>
-                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                                              Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                    <EasingColorKeyFrame KeyTime="0"
-                                                                         Value="LightBlue" />
-                                                </ColorAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
+                        <VisualStateManager.VisualStateGroups>
 
-                                        <VisualState x:Name="SelectedUnfocused">
-                                            <Storyboard>
-                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                                          Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
-                                                    <EasingColorKeyFrame KeyTime="0"
-                                                                     Value="LightGray" />
-                                                </ColorAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                      Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                                                 Value="LightBlue" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
 
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                  Storyboard.TargetProperty="(Panel.Background).  (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                                             Value="LightGray" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
 
-        </ListView.ItemContainerStyle>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-        <ListView.View>
-            <GridView>
-                <GridView.Columns>
-                    <GridViewColumn Header="name"
-                                    DisplayMemberBinding="{Binding Content.Name}"
-                                    />
-                </GridView.Columns>
-            </GridView>
-        </ListView.View>
-    </ListView>
+    <DataTemplate x:Key="listBoxDataTemplate">
 
-    <ListBox x:Key="listBoxResource"
-             ItemsSource="{Binding FileList.Files}"
-             x:Shared="false"
-             SelectedIndex="{Binding FileList.SelectedIndex}"
-             >
-
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Content.Name}"/>
-                </StackPanel>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Content.Name}"/>
+        </StackPanel>
+    </DataTemplate>
 
 </ResourceDictionary>
