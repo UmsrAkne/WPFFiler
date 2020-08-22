@@ -58,41 +58,20 @@
             </Grid.ColumnDefinitions>
             
             <Grid.InputBindings>
-                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" 
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
-
-                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" 
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
-
-                <KeyBinding Key="D" Command="{Binding FileListControlCommands.PageDownCommand}" 
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
-
-                <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" 
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
-
-                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}"
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
-
-                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}"
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
+                <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
+                <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
+                <KeyBinding Key="D" Command="{Binding FileListControlCommands.PageDownCommand}" />
+                <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" />
+                <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
+                <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
-
                 <KeyBinding Gesture="CTRL+SHIFT+N" Command="{Binding FileListControlCommands.CreateDirectoryCommand}"/>
-                <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding FileListControlCommands.DeleteMarkedFilesCommand}" />
 
-                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenCommand}" 
-                            CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
-                            />
+                <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding FileListControlCommands.DeleteMarkedFilesCommand}" />
+                <KeyBinding Key="O" Command="{Binding FileListControlCommands.OpenCommand}" />
 
                 <KeyBinding Key="U" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveToParentDirectory}" />
-
                 <KeyBinding Key="Space" Command="{Binding FileListControlCommands.ToggleMarkCommand}" />
                 <KeyBinding Key="M" Command="{Binding FileListControlCommands.MarkCommand}" />
                 <KeyBinding Key="M" Modifiers="Shift" Command="{Binding FileListControlCommands.UnmarkCommand}" />

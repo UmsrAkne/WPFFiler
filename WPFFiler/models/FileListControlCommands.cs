@@ -26,122 +26,147 @@ namespace WPFFiler.models {
             dialogService = ds;
         }
 
-        private DelegateCommand<ListBox> moveCursorToEndCommand;
-        public DelegateCommand<ListBox> MoveCursorToEndCommand {
-            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-                    mainFileList.SelectedIndex = mainFileList.Files.Count - 1;
-                    listBox.ScrollIntoView(listBox.SelectedItem);
-                }
-            ));
-        }
-
-        private DelegateCommand<ListBox> moveCursorToHeadCommand;
-        public DelegateCommand<ListBox> MoveCursorToHeadCommand {
-            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-                    if(repeatCount == 0) {
-                        mainFileList.SelectedIndex = 0;
-                        listBox.ScrollIntoView(listBox.SelectedItem);
-                        
-                    }
-                    else {
-                        mainFileList.SelectedIndex = repeatCount;
-                        listBox.ScrollIntoView(listBox.SelectedItem);
-                        repeatCount = 0;
+        private DelegateCommand moveCursorToEndCommand;
+        public DelegateCommand MoveCursorToEndCommand {
+            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        FileList currentFileList = getFileListFromListView(lv);
+                        currentFileList.SelectedIndex = currentFileList.Files.Count - 1;
+                        lv.ScrollIntoView(lv.SelectedItem);
                     }
                 }
             ));
         }
 
-        private DelegateCommand<ListBox> downCursorCommand;
-        public DelegateCommand<ListBox> DownCursorCommand {
-            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-
-                    var action = new Action(() => {
-                        mainFileList.SelectedIndex++;
-                        listBox.ScrollIntoView(listBox.SelectedItem);
-                    });
-
-                    if(repeatCount == 0) {
-                        action();
-                    }
-                    else {
-                        repeatCommand(action);
-                    }
-                }
-            ));
-        }
-
-        private DelegateCommand<ListBox> upCursorCommand;
-        public DelegateCommand<ListBox> UpCursorCommand {
-            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-
-                    var action = new Action(() => {
-                        mainFileList.SelectedIndex--;
-                        listBox.ScrollIntoView(listBox.SelectedItem);
-                    });
-
-                    if(repeatCount == 0) {
-                        action();
-                    }
-                    else {
-                        repeatCommand(action);
-                    }
-                }
-            ));
-        }
-
-        private DelegateCommand<ListBox> pageUpCommand;
-        public DelegateCommand<ListBox> PageUpCommand {
-            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-                    Action action = new Action(() => {
-                        if(mainFileList.Files.Count > 0) {
-                            listBox.UpdateLayout();
-                            var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
-
-                            // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
-                            int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
-                            mainFileList.SelectedIndex -= itemDisplayCapacity;
-                            listBox.ScrollIntoView(listBox.SelectedItem);
+        private DelegateCommand moveCursorToHeadCommand;
+        public DelegateCommand MoveCursorToHeadCommand {
+            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        FileList fl = getFileListFromListView(lv);
+                        if(repeatCount == 0) {
+                            fl.SelectedIndex = 0;
+                            lv.ScrollIntoView(lv.SelectedItem);
+                            
                         }
-                    });
-
-                    if(repeatCount == 0) {
-                        action();
-                    }
-                    else {
-                        repeatCommand(action);
+                        else {
+                            fl.SelectedIndex = repeatCount;
+                            lv.ScrollIntoView(lv.SelectedItem);
+                            repeatCount = 0;
+                        }
                     }
                 }
             ));
         }
 
-        private DelegateCommand<ListBox> pageDownCommand;
-        public DelegateCommand<ListBox> PageDownCommand {
-            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-                    Action action = new Action(() => {
-                        if(mainFileList.Files.Count > 0) {
-                            listBox.UpdateLayout();
-                            var lbItem = listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items.GetItemAt(mainFileList.SelectedIndex)) as ListBoxItem;
+        private DelegateCommand downCursorCommand;
+        public DelegateCommand DownCursorCommand {
+            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
 
-                            // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
-                            int itemDisplayCapacity = (int)Math.Floor(listBox.ActualHeight / lbItem.ActualHeight) - 2;
-                            mainFileList.SelectedIndex += itemDisplayCapacity;
-                            listBox.ScrollIntoView(listBox.SelectedItem);
+                        var action = new Action(() => {
+                            fl.SelectedIndex++;
+                            lv.ScrollIntoView(lv.SelectedItem);
+                        });
+
+                        if(repeatCount == 0) {
+                            action();
                         }
-                    });
+                        else {
+                            repeatCommand(action);
+                        }
+                    }
+                }
+            ));
+        }
 
-                    if(repeatCount == 0) {
-                        action();
+        private DelegateCommand upCursorCommand;
+        public DelegateCommand UpCursorCommand {
+            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        var action = new Action(() => {
+                            fl.SelectedIndex--;
+                            lv.ScrollIntoView(lv.SelectedItem);
+                        });
+
+                        if(repeatCount == 0) {
+                            action();
+                        }
+                        else {
+                            repeatCommand(action);
+                        }
                     }
-                    else {
-                        repeatCommand(action);
+                }
+            ));
+        }
+
+        private DelegateCommand pageUpCommand;
+        public DelegateCommand PageUpCommand {
+            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+
+                        Action action = new Action(() => {
+                            if(fl.Files.Count > 0) {
+                                lv.UpdateLayout();
+                                var lbItem = lv.ItemContainerGenerator.ContainerFromItem(lv.Items.GetItemAt(fl.SelectedIndex)) as ListBoxItem;
+
+                                // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
+                                int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
+                                fl.SelectedIndex -= itemDisplayCapacity;
+                                lv.ScrollIntoView(lv.SelectedItem);
+                            }
+                        });
+
+                        if(repeatCount == 0) {
+                            action();
+                        }
+                        else {
+                            repeatCommand(action);
+                        }
                     }
+                }
+            ));
+        }
+
+        private DelegateCommand pageDownCommand;
+        public DelegateCommand PageDownCommand {
+            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        Action action = new Action(() => {
+                            if(fl.Files.Count > 0) {
+                                lv.UpdateLayout();
+                                var lbItem = lv.ItemContainerGenerator.ContainerFromItem(lv.Items.GetItemAt(fl.SelectedIndex)) as ListBoxItem;
+
+                                // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
+                                int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
+                                fl.SelectedIndex += itemDisplayCapacity;
+                                lv.ScrollIntoView(lv.SelectedItem);
+                            }
+                        });
+
+                        if(repeatCount == 0) {
+                            action();
+                        }
+                        else {
+                            repeatCommand(action);
+                        }
+                    }
+
                 }
             ));
         }
@@ -150,26 +175,35 @@ namespace WPFFiler.models {
         public DelegateCommand ReloadCommand {
             get => reloadCommand ?? (reloadCommand = new DelegateCommand(
                 () => {
-                    mainFileList.reload();
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        fl?.reload();
+                    }
                 }
             ));
         }
 
-        private DelegateCommand<ListBox> openCommand;
-        public DelegateCommand<ListBox> OpenCommand {
-            get => openCommand ?? (openCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
-                    ExFile currentFile = (ExFile)mainFileList.Files[mainFileList.SelectedIndex];
-                    if (currentFile.IsDirectory) {
-                        mainFileList.CurrentDirectoryPath = currentFile.Content.FullName;
+        private DelegateCommand openCommand;
+        public DelegateCommand OpenCommand {
+            get => openCommand ?? (openCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
 
-                        // ディレクトリの中身が存在する場合はスクロール処理も行う
-                        if(mainFileList.Files.Count > 0) {
-                            listBox.ScrollIntoView(listBox.Items.GetItemAt(0));
+                        var fl = getFileListFromListView(lv);
+                        ExFile currentFile = (ExFile)fl.Files[fl.SelectedIndex];
+                        if (currentFile.IsDirectory) {
+                            fl.CurrentDirectoryPath = currentFile.Content.FullName;
+
+                            // ディレクトリの中身が存在する場合はスクロール処理も行う
+                            if(fl.Files.Count > 0) {
+                                lv.ScrollIntoView(lv.Items.GetItemAt(0));
+                            }
                         }
-                    }
-                    else {
-                        System.Diagnostics.Process.Start(currentFile.Content.FullName);
+                        else {
+                            System.Diagnostics.Process.Start(currentFile.Content.FullName);
+                        }
                     }
                 }
             ));
@@ -179,19 +213,31 @@ namespace WPFFiler.models {
         public DelegateCommand MoveToParentDirectory {
             get => moveToParentDirectory ?? (moveToParentDirectory = new DelegateCommand(
                 () => {
-                    if(repeatCount == 0) {
-                        mainFileList.CurrentDirectoryPath = new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent.FullName;
-                    }
-                    else {
-                        repeatCommand(() => {
-                            var parentDirectory = new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent;
-                            if(parentDirectory != null) {
-                                mainFileList.CurrentDirectoryPath = parentDirectory.FullName;
-                            }
-                        });
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        if(repeatCount == 0) {
+                            fl.CurrentDirectoryPath = new DirectoryInfo(fl.CurrentDirectoryPath).Parent.FullName;
+                        }
+                        else {
+                            repeatCommand(() => {
+                                var parentDirectory = new DirectoryInfo(fl.CurrentDirectoryPath).Parent;
+                                if(parentDirectory != null) {
+                                    fl.CurrentDirectoryPath = parentDirectory.FullName;
+                                }
+                            });
+                        }
                     }
                 },
-                () => new DirectoryInfo(mainFileList.CurrentDirectoryPath).Parent != null
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv == null) {
+                        return false;
+                    }
+
+                    var fl = getFileListFromListView(lv);
+                    return (new DirectoryInfo(fl.CurrentDirectoryPath).Parent != null);
+                }
             ));
         }
 
@@ -207,15 +253,23 @@ namespace WPFFiler.models {
         public DelegateCommand CreateDirectoryCommand {
             get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
                 () => {
+                    var lv = getFocusingListView();
+
+                    if(lv == null) {
+                        return;
+                    }
+
+                    var fl = getFileListFromListView(lv);
+
                     dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(),
                         (IDialogResult result) => {
                             System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
                             if(result != null) {
                                 string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
                                 if (!string.IsNullOrEmpty(r)) {
-                                    ExFile directory = new ExFile(mainFileList.CurrentDirectoryPath + "\\" + r);
+                                    ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
                                     directory.createDirectory();
-                                    mainFileList.reload();
+                                    fl.reload();
                                 }
                             }
                         });
@@ -227,9 +281,13 @@ namespace WPFFiler.models {
         public DelegateCommand DeleteMarkedFilesCommand {
             get => deleteMarkedFilesCommand ?? (deleteMarkedFilesCommand = new DelegateCommand(
                 () => {
-                    mainFileList.MakedFiles.ForEach((ExFile f) => { f.delete(); });
-                    mainFileList.reload();
-                    mainFileList.SelectedIndex = 0;
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        fl.MakedFiles.ForEach((ExFile f) => { f.delete(); });
+                        fl.reload();
+                        fl.SelectedIndex = 0;
+                    }
                 }
             ));
         }
@@ -238,8 +296,12 @@ namespace WPFFiler.models {
         public DelegateCommand ToggleMarkCommand {
             get => toggleMarkCommand ?? (toggleMarkCommand = new DelegateCommand(
                 () => {
-                    var file = mainFileList.Files[mainFileList.SelectedIndex];
-                    file.IsMarked = !file.IsMarked;
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        var file = fl.Files[fl.SelectedIndex];
+                        file.IsMarked = !file.IsMarked;
+                    }
                 }
             ));
         }
@@ -248,17 +310,21 @@ namespace WPFFiler.models {
         public DelegateCommand MarkCommand {
             get => markCommand ?? (markCommand = new DelegateCommand(
                 () => {
-                    Action action = () => {
-                        var file = mainFileList.Files[mainFileList.SelectedIndex];
-                        file.IsMarked = true;
-                        mainFileList.SelectedIndex++;
-                    };
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        Action action = () => {
+                            var file = fl.Files[fl.SelectedIndex];
+                            file.IsMarked = true;
+                            fl.SelectedIndex++;
+                        };
 
-                    if(repeatCount == 0) {
-                        action();
-                    }
-                    else {
-                        repeatCommand(action);
+                        if(repeatCount == 0) {
+                            action();
+                        }
+                        else {
+                            repeatCommand(action);
+                        }
                     }
                 }
             ));
@@ -268,17 +334,21 @@ namespace WPFFiler.models {
         public DelegateCommand UnmarkCommand {
             get => unmarkCommand ?? (unmarkCommand = new DelegateCommand(
                 () => {
-                    Action action = () => {
-                        var file = mainFileList.Files[mainFileList.SelectedIndex];
-                        file.IsMarked = false;
-                        mainFileList.SelectedIndex++;
-                    };
+                    var lv = getFocusingListView();
+                    if (lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        Action action = () => {
+                            var file = fl.Files[fl.SelectedIndex];
+                            file.IsMarked = false;
+                            fl.SelectedIndex++;
+                        };
 
-                    if(repeatCount == 0) {
-                        action();
-                    }
-                    else {
-                        repeatCommand(action);
+                        if(repeatCount == 0) {
+                            action();
+                        }
+                        else {
+                            repeatCommand(action);
+                        }
                     }
                 }
             ));
@@ -349,6 +419,23 @@ namespace WPFFiler.models {
             }
 
             return (obj != null) ? (ListView)obj : null;
+        }
+
+        /// <summary>
+        /// ListView から、それに紐付いている FileList モデルを取得します。
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        private FileList getFileListFromListView(ListView lv) {
+            if(ReferenceEquals(mainFileList.Files, lv.ItemsSource)) {
+                return mainFileList;
+            }
+
+            if(ReferenceEquals(subFileList.Files, lv.ItemsSource)) {
+                return subFileList;
+            }
+
+            return null;
         }
 
         /// <summary>
