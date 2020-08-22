@@ -82,10 +82,14 @@ namespace WPFFiler.models {
             SelectedIndex = 0;
         }
 
-        public List<ExFile> MakedFiles {
+        public List<ExFile> MarkedFiles {
             get {
                 return Files.Where((f) => f.IsMarked).ToList();
             }
+        }
+
+        public void raiseMakedFilesChanged() {
+            RaisePropertyChanged(nameof(MarkedFiles));
         }
     }
 }

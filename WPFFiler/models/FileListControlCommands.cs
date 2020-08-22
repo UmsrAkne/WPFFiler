@@ -284,7 +284,7 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-                        fl.MakedFiles.ForEach((ExFile f) => { f.delete(); });
+                        fl.MarkedFiles.ForEach((ExFile f) => { f.delete(); });
                         fl.reload();
                         fl.SelectedIndex = 0;
                     }
@@ -301,6 +301,7 @@ namespace WPFFiler.models {
                         var fl = getFileListFromListView(lv);
                         var file = fl.Files[fl.SelectedIndex];
                         file.IsMarked = !file.IsMarked;
+                        fl.raiseMakedFilesChanged();
                     }
                 }
             ));
@@ -317,6 +318,7 @@ namespace WPFFiler.models {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = true;
                             fl.SelectedIndex++;
+                            fl.raiseMakedFilesChanged();
                         };
 
                         if(repeatCount == 0) {
@@ -341,6 +343,7 @@ namespace WPFFiler.models {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = false;
                             fl.SelectedIndex++;
+                            fl.raiseMakedFilesChanged();
                         };
 
                         if(repeatCount == 0) {

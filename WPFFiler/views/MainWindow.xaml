@@ -56,7 +56,12 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
             <Grid.InputBindings>
                 <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
                 <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
@@ -104,6 +109,7 @@
 
             <ContentControl x:Name="itemsControlContainer"
                             Grid.Column="0"
+                            Grid.Row="0"
                             >
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
@@ -157,8 +163,19 @@
 
             </ContentControl>
 
+            <StatusBar VerticalAlignment="Bottom"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       >
+                <TextBlock Text="{Binding FileList.Files.Count}" />
+                <TextBlock Text="File / "/>
+                <TextBlock Text="{Binding FileList.MarkedFiles.Count}"/>
+                <TextBlock Text="Marked / "/>
+            </StatusBar>
+
             <ContentControl x:Name="subItemsContentContorol"
                             Grid.Column="1"
+                            Grid.Row="0"
                             >
 
                 <ContentControl.Style>
@@ -213,6 +230,17 @@
 
             </ContentControl>
             
+            <StatusBar VerticalAlignment="Bottom"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       >
+                <Separator/>
+                <TextBlock Text="{Binding SubFileList.Files.Count}" />
+                <TextBlock Text="File / "/>
+                <TextBlock Text="{Binding SubFileList.MarkedFiles.Count}"/>
+                <TextBlock Text="Marked / "/>
+            </StatusBar>
+
         </Grid>
     </Grid>
 </Window>
