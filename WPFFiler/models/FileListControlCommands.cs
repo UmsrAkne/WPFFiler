@@ -284,7 +284,7 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-                        fl.MakedFiles.ForEach((ExFile f) => { f.delete(); });
+                        fl.MarkedFiles.ForEach((ExFile f) => { f.delete(); });
                         fl.reload();
                         fl.SelectedIndex = 0;
                     }
