@@ -352,6 +352,23 @@ namespace WPFFiler.models {
         }
 
         /// <summary>
+        /// ListView から、それに紐付いている FileList モデルを取得します。
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        private FileList getFileListFromListView(ListView lv) {
+            if(ReferenceEquals(mainFileList.Files, lv.ItemsSource)) {
+                return mainFileList;
+            }
+
+            if(ReferenceEquals(subFileList.Files, lv.ItemsSource)) {
+                return subFileList;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// repeatCount の回数だけ action を実行し、実行後に repeatCount を 0 にセットします
         /// </summary>
         /// <param name="action"></param>
