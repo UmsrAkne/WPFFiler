@@ -87,5 +87,9 @@ namespace WPFFiler.models {
                 return Files.Where((f) => f.IsMarked).ToList();
             }
         }
+
+        public void raiseMakedFilesChanged() {
+            RaisePropertyChanged(nameof(MarkedFiles));
+        }
     }
 }

@@ -167,8 +167,10 @@
                        Grid.Row="1"
                        Grid.Column="0"
                        >
-
-                <TextBlock Text="statusBar" />
+                <TextBlock Text="{Binding FileList.Files.Count}" />
+                <TextBlock Text="File / "/>
+                <TextBlock Text="{Binding FileList.MarkedFiles.Count}"/>
+                <TextBlock Text="Marked / "/>
             </StatusBar>
 
             <ContentControl x:Name="subItemsContentContorol"
@@ -232,7 +234,11 @@
                        Grid.Row="1"
                        Grid.Column="1"
                        >
-                <TextBlock Text="statusBar" />
+                <Separator/>
+                <TextBlock Text="{Binding SubFileList.Files.Count}" />
+                <TextBlock Text="File / "/>
+                <TextBlock Text="{Binding SubFileList.MarkedFiles.Count}"/>
+                <TextBlock Text="Marked / "/>
             </StatusBar>
 
         </Grid>
