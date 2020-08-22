@@ -56,7 +56,12 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
             <Grid.InputBindings>
                 <KeyBinding Key="J" Command="{Binding FileListControlCommands.DownCursorCommand}" />
                 <KeyBinding Key="K" Command="{Binding FileListControlCommands.UpCursorCommand}" />
@@ -104,6 +109,7 @@
 
             <ContentControl x:Name="itemsControlContainer"
                             Grid.Column="0"
+                            Grid.Row="0"
                             >
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
@@ -157,8 +163,17 @@
 
             </ContentControl>
 
+            <StatusBar VerticalAlignment="Bottom"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       >
+
+                <TextBlock Text="statusBar" />
+            </StatusBar>
+
             <ContentControl x:Name="subItemsContentContorol"
                             Grid.Column="1"
+                            Grid.Row="0"
                             >
 
                 <ContentControl.Style>
@@ -213,6 +228,13 @@
 
             </ContentControl>
             
+            <StatusBar VerticalAlignment="Bottom"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       >
+                <TextBlock Text="statusBar" />
+            </StatusBar>
+
         </Grid>
     </Grid>
 </Window>
