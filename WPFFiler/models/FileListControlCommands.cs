@@ -26,10 +26,10 @@ namespace WPFFiler.models {
             dialogService = ds;
         }
 
-        private DelegateCommand<ListBox> moveCursorToEndCommand;
-        public DelegateCommand<ListBox> MoveCursorToEndCommand {
-            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand moveCursorToEndCommand;
+        public DelegateCommand MoveCursorToEndCommand {
+            get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         FileList currentFileList = getFileListFromListView(lv);
@@ -40,10 +40,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> moveCursorToHeadCommand;
-        public DelegateCommand<ListBox> MoveCursorToHeadCommand {
-            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand moveCursorToHeadCommand;
+        public DelegateCommand MoveCursorToHeadCommand {
+            get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         FileList fl = getFileListFromListView(lv);
@@ -62,10 +62,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> downCursorCommand;
-        public DelegateCommand<ListBox> DownCursorCommand {
-            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand downCursorCommand;
+        public DelegateCommand DownCursorCommand {
+            get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
@@ -86,10 +86,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> upCursorCommand;
-        public DelegateCommand<ListBox> UpCursorCommand {
-            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand upCursorCommand;
+        public DelegateCommand UpCursorCommand {
+            get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
@@ -109,10 +109,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> pageUpCommand;
-        public DelegateCommand<ListBox> PageUpCommand {
-            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand pageUpCommand;
+        public DelegateCommand PageUpCommand {
+            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
@@ -140,10 +140,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> pageDownCommand;
-        public DelegateCommand<ListBox> PageDownCommand {
-            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand pageDownCommand;
+        public DelegateCommand PageDownCommand {
+            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
@@ -184,10 +184,10 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> openCommand;
-        public DelegateCommand<ListBox> OpenCommand {
-            get => openCommand ?? (openCommand = new DelegateCommand<ListBox>(
-                (listBox) => {
+        private DelegateCommand openCommand;
+        public DelegateCommand OpenCommand {
+            get => openCommand ?? (openCommand = new DelegateCommand(
+                () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
 
