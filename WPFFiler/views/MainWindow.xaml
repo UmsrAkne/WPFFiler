@@ -36,12 +36,26 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0">
+            <MenuItem Header="ファイル(_F)"/>
+            <MenuItem Header="表示(_V)">
+                <MenuItem Header="リストを入れ替え(_E)"/>
+                <MenuItem Header="リストを同期(_S)"/>
+            </MenuItem>
+
+            <MenuItem Header="モード(_M)">
+                <MenuItem Header="２画面ファイラ"/>
+                <MenuItem Header="複製画面"/>
+            </MenuItem>
+        </Menu>
+
         <TextBox x:Name="urlBar"
                  Text="{Binding FileList.CurrentDirectoryPath}"
-                 Grid.Row="0"
+                 Grid.Row="1"
                  >
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding FileListControlCommands.MoveToDirectory}"
@@ -50,7 +64,7 @@
         </TextBox>
 
         <Grid Focusable="True"
-              Grid.Row="1"
+              Grid.Row="2"
               >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
