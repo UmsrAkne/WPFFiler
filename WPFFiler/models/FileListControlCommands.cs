@@ -442,6 +442,19 @@ namespace WPFFiler.models {
         }
 
         /// <summary>
+        /// mainFileList, subFileList のうち、引数に入力した方でない方の FileList を取得します。
+        /// </summary>
+        /// <param name="fl"></param>
+        /// <returns></returns>
+        private FileList getAnotherFileList(FileList fl) {
+            if((mainFileList == fl) == (subFileList == fl)) {
+                throw new ArgumentException("入力される FileList は、 mainFileList, subFileList のいずれか一方とのみ同一のインスタンスでなければなりません。");
+            }
+
+            return (mainFileList == fl) ? subFileList : mainFileList;
+        }
+
+        /// <summary>
         /// repeatCount の回数だけ action を実行し、実行後に repeatCount を 0 にセットします
         /// </summary>
         /// <param name="action"></param>
