@@ -357,6 +357,24 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand copyFileCommand;
+        public DelegateCommand CopyFileCommand {
+            get => copyFileCommand ?? (copyFileCommand = new DelegateCommand(
+                () => {
+                    var fileList = getFileListFromListView(getFocusingListView());
+                    var anotherFileList = getAnotherFileList(fileList);
+
+                    fileList.MarkedFiles.ForEach((f) => {
+                        f.copyTo(anotherFileList.CurrentDirectoryPath);
+                    });
+
+                    fileList.reload();
+                    anotherFileList.reload();
+                },
+                () => getFocusingListView() != null
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
@@ -439,6 +457,19 @@ namespace WPFFiler.models {
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// mainFileList, subFileList のうち、引数に入力した方でない方の FileList を取得します。
+        /// </summary>
+        /// <param name="fl"></param>
+        /// <returns></returns>
+        private FileList getAnotherFileList(FileList fl) {
+            if((mainFileList == fl) == (subFileList == fl)) {
+                throw new ArgumentException("入力される FileList は、 mainFileList, subFileList のいずれか一方とのみ同一のインスタンスでなければなりません。");
+            }
+
+            return (mainFileList == fl) ? subFileList : mainFileList;
         }
 
         /// <summary>

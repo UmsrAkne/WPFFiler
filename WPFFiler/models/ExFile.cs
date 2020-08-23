@@ -93,5 +93,13 @@ namespace WPFFiler.models {
             }
         }
 
+        public void copyTo(string destinationPath) {
+            if (IsDirectory) {
+                FileSystem.CopyDirectory(Content.FullName, destinationPath + "\\" + Content.Name);
+            }
+            else {
+                FileSystem.CopyFile(Content.FullName, destinationPath + "\\" + Content.Name);
+            }
+        }
     }
 }
