@@ -357,6 +357,24 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand copyFileCommand;
+        public DelegateCommand CopyFileCommand {
+            get => copyFileCommand ?? (copyFileCommand = new DelegateCommand(
+                () => {
+                    var fileList = getFileListFromListView(getFocusingListView());
+                    var anotherFileList = getAnotherFileList(fileList);
+
+                    fileList.MarkedFiles.ForEach((f) => {
+                        f.copyTo(anotherFileList.CurrentDirectoryPath);
+                    });
+
+                    fileList.reload();
+                    anotherFileList.reload();
+                },
+                () => getFocusingListView() != null
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
