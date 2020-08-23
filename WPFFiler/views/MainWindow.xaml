@@ -148,10 +148,16 @@
                                             <ListView.View>
                                                 <GridView>
                                                     <GridView.Columns>
+
                                                         <GridViewColumn Header="name"
                                                                         DisplayMemberBinding="{Binding Content.Name}"
                                                                         />
+
+                                                        <GridViewColumn Header="type"
+                                                                        DisplayMemberBinding="{Binding Type}"
+                                                                        />
                                                     </GridView.Columns>
+
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
@@ -215,8 +221,13 @@
                                             <ListView.View>
                                                 <GridView>
                                                     <GridView.Columns>
+
                                                         <GridViewColumn Header="name"
                                                                         DisplayMemberBinding="{Binding Content.Name}"
+                                                                        />
+
+                                                        <GridViewColumn Header="type"
+                                                                        DisplayMemberBinding="{Binding Type}"
                                                                         />
                                                     </GridView.Columns>
                                                 </GridView>

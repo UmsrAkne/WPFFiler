@@ -54,6 +54,8 @@ namespace WPFFiler.models {
         /// </summary>
         public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
 
+        public string Type { get => (IsDirectory) ? "[DIR]" : Content.Extension; }
+
         /// <summary>
         /// CurrentPath の値を使用してファイルを新規作成します。
         /// このメソッドを呼び出すと、Content に FileInfo がセットされます。
