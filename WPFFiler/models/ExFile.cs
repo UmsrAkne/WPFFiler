@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
+using System.Windows.Media.Imaging;
 
 namespace WPFFiler.models {
     public class ExFile : BindableBase{
@@ -45,6 +46,16 @@ namespace WPFFiler.models {
             }
 
             Content = (Directory.Exists(path)) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
+
+            if (IsImageFile) {
+                FileStream stream = File.OpenRead(Content.FullName);
+                Thumbnail.BeginInit();
+                Thumbnail.CacheOption = BitmapCacheOption.OnLoad;
+                Thumbnail.StreamSource = stream;
+                Thumbnail.DecodePixelWidth = 80;
+                Thumbnail.EndInit();
+                stream.Close();
+            }
         }
 
         public Boolean Exists { get => (File.Exists(CurrentPath) || Directory.Exists(CurrentPath)); }
@@ -55,6 +66,14 @@ namespace WPFFiler.models {
         public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
 
         public string Type { get => (IsDirectory) ? "[DIR]" : Content.Extension; }
+
+        public BitmapImage Thumbnail {
+            get; private set;
+        } = new BitmapImage();
+
+        public Boolean IsImageFile {
+            get => new String[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
+        }
 
         /// <summary>
         /// CurrentPath の値を使用してファイルを新規作成します。
