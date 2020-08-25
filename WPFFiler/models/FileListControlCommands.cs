@@ -249,6 +249,14 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand<string> moveToDirectoryForSubFileList;
+        public DelegateCommand<string> MoveToDirectoryForSubFileList {
+            get => moveToDirectoryForSubFileList ?? (moveToDirectoryForSubFileList = new DelegateCommand<string>(
+                path => subFileList.CurrentDirectoryPath = path,
+                path => new DirectoryInfo(path).Exists
+            ));
+        }
+
         private DelegateCommand createDirectoryCommand;
         public DelegateCommand CreateDirectoryCommand {
             get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
