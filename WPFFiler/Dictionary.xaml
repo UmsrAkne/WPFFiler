@@ -69,9 +69,25 @@
 
     <DataTemplate x:Key="listBoxDataTemplate">
 
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Content.Name}"/>
-        </StackPanel>
+        <Border BorderBrush="LightGray"
+                BorderThickness="1"
+                CornerRadius="2"
+                Padding="2"
+                >
+            <StackPanel Width="110"
+                        Height="auto"
+                        >
+
+                <Image Source="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content.Thumbnail}"
+                       Width="80"
+                       />
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content}"
+                           TextWrapping="Wrap"
+                           />
+            </StackPanel>
+        </Border>
+
     </DataTemplate>
 
 </ResourceDictionary>

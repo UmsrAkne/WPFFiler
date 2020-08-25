@@ -202,9 +202,25 @@
                                          >
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <ListBox>
+                                        <ListBox ItemsSource="{Binding FileList.Files}"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                 SelectedIndex="{Binding FileList.SelectedIndex}"
+                                                 >
+
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+
+                                            <ListBox.Style>
+                                                <Style TargetType="ListBox">
+                                                    <Setter Property="ItemTemplate" Value="{StaticResource listBoxDataTemplate}"/>
+                                                </Style>
+                                            </ListBox.Style>
 
                                         </ListBox>
+
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
@@ -285,16 +301,11 @@
                                                 </ItemsPanelTemplate>
                                             </ListBox.ItemsPanel>
 
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel>
-                                                        <Image Source="{Binding Thumbnail}"
-                                                               Width="80"
-                                                               />
-                                                        <TextBlock Text="{Binding Content.Name}"/>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
+                                            <ListBox.Style>
+                                                <Style TargetType="ListBox">
+                                                    <Setter Property="ItemTemplate" Value="{StaticResource listBoxDataTemplate}"/>
+                                                </Style>
+                                            </ListBox.Style>
 
                                         </ListBox>
                                     </Setter.Value>

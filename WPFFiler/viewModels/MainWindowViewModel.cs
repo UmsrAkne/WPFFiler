@@ -32,7 +32,6 @@ namespace WPFFiler.ViewModels {
         public MainWindowViewModel(IDialogService dialogService) {
             this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
-            SubFileList.ViewStyle = ViewStyle.ListBox;
         }
 
     }
