@@ -234,7 +234,7 @@
                     <Style TargetType="ContentControl">
                         <Style.Triggers>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.ViewStyle}"
                                          Value="ListView"
                                          >
 
@@ -269,12 +269,32 @@
                                 </Setter>
                             </DataTrigger>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.ViewStyle}"
                                          Value="ListBox"
                                          >
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <ListBox>
+                                        <ListBox ItemsSource="{Binding SubFileList.Files}"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                 SelectedIndex="{Binding SubFileList.SelectedIndex}"
+                                                 >
+
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <Image Source="{Binding Thumbnail}"
+                                                               Width="80"
+                                                               />
+                                                        <TextBlock Text="{Binding Content.Name}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
 
                                         </ListBox>
                                     </Setter.Value>
