@@ -23,12 +23,25 @@
         <KeyBinding Key="Esc" Command="{Binding FileListControlCommands.FocusCommand}"
                     CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                     />
+
         <KeyBinding Key="OemOpenBrackets" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusCommand}"
                     CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
                     />
 
+        <KeyBinding Key="H" Modifiers="Shift" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=itemsControlContainer, Path=Content}"
+                    />
+
+        <KeyBinding Key="L" Modifiers="Shift" Command="{Binding FileListControlCommands.FocusCommand}"
+                    CommandParameter="{Binding ElementName=subItemsContentContorol, Path=Content}"
+                    />
+
         <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding FileListControlCommands.FocusToURLBarCommandCommand}"
                     CommandParameter="{Binding ElementName=urlBar}"
+                    />
+
+        <KeyBinding Key="K" Modifiers="Ctrl+Shift" Command="{Binding FileListControlCommands.FocusToURLBarCommandCommand}"
+                    CommandParameter="{Binding ElementName=subUrlBar}"
                     />
 
     </Window.InputBindings>
