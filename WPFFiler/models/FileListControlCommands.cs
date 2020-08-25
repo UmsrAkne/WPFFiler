@@ -433,13 +433,13 @@ namespace WPFFiler.models {
         /// 現在キーボードフォーカスが当たっている ListView を取得します。
         /// </summary>
         /// <returns> ListView がフォーカスを持っていない場合は null を返します。</returns>
-        private ListView getFocusingListView() {
+        private ListBox getFocusingListView() {
             if (Keyboard.FocusedElement == null) {
                 return null;
             }
 
             var obj = (System.Windows.DependencyObject)Keyboard.FocusedElement;
-            while(!(obj is ListView)) {
+            while(!(obj is ListBox)) {
                 obj = System.Windows.Media.VisualTreeHelper.GetParent(obj);
 
                 if(obj == null) {
@@ -447,7 +447,7 @@ namespace WPFFiler.models {
                 }
             }
 
-            return (obj != null) ? (ListView)obj : null;
+            return (obj != null) ? (ListBox)obj : null;
         }
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace WPFFiler.models {
         /// </summary>
         /// <param name="lv"></param>
         /// <returns></returns>
-        private FileList getFileListFromListView(ListView lv) {
+        private FileList getFileListFromListView(ListBox lv) {
             if(ReferenceEquals(mainFileList.Files, lv.ItemsSource)) {
                 return mainFileList;
             }
