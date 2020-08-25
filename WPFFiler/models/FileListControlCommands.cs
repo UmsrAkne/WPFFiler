@@ -383,6 +383,27 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand<ListBox> changeToListBoxStyleCommand;
+        public DelegateCommand<ListBox> ChangeToListBoxStyleCommand {
+            get => changeToListBoxStyleCommand ?? (changeToListBoxStyleCommand = new DelegateCommand<ListBox>(
+                (ListBox lb) => {
+                    var listBox = lb as ListBox;
+                    var currentFL = getFileListFromListView(listBox);
+                    currentFL.ViewStyle = ViewStyle.ListBox;
+                }
+            ));
+        }
+
+        private DelegateCommand<ListBox> changeToListViewStyleCommand;
+        public DelegateCommand<ListBox> ChangeToListViewStyleCommand {
+            get => changeToListViewStyleCommand ?? (changeToListViewStyleCommand = new DelegateCommand<ListBox>(
+                (ListBox lb) => {
+                    var fl = getFileListFromListView(lb);
+                    fl.ViewStyle = ViewStyle.ListView;
+                }
+            ));
+        }
+
         private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand { 
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(

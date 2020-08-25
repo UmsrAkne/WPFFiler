@@ -64,6 +64,28 @@
                 <MenuItem Header="２画面ファイラ"/>
                 <MenuItem Header="複製画面"/>
             </MenuItem>
+
+            <MenuItem Header="左画面(_L)">
+                <MenuItem Header="リストビュー(_L)"
+                          Command="{Binding FileListControlCommands.ChangeToListViewStyleCommand}"
+                          CommandParameter="{Binding ElementName=itemsControlContainer,Path=Content}"
+                          />
+                <MenuItem Header="リストボックス(_B)"
+                          Command="{Binding FileListControlCommands.ChangeToListBoxStyleCommand}"
+                          CommandParameter="{Binding ElementName=itemsControlContainer,Path=Content}"
+                          />
+            </MenuItem>
+
+            <MenuItem Header="右画面(_R)">
+                <MenuItem Header="リストビュー(_L)"
+                          Command="{Binding FileListControlCommands.ChangeToListViewStyleCommand}"
+                          CommandParameter="{Binding ElementName=subItemsContentContorol,Path=Content}"
+                          />
+                <MenuItem Header="リストボックス(_B)"
+                          Command="{Binding FileListControlCommands.ChangeToListBoxStyleCommand}"
+                          CommandParameter="{Binding ElementName=subItemsContentContorol,Path=Content}"
+                          />
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1">
