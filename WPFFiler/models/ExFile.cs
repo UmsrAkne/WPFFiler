@@ -120,5 +120,22 @@ namespace WPFFiler.models {
                 FileSystem.CopyFile(Content.FullName, destinationPath + "\\" + Content.Name);
             }
         }
+
+        public void moveTo(string destinationDirectoryPath) {
+            if (IsDirectory) {
+                FileSystem.MoveDirectory(
+                    Content.FullName,
+                    destinationDirectoryPath + "\\" + Content.Name,
+                    UIOption.AllDialogs,
+                    UICancelOption.DoNothing);
+            }
+            else {
+                FileSystem.MoveFile(
+                    Content.FullName,
+                    destinationDirectoryPath + "\\" + Content.Name,
+                    UIOption.AllDialogs,
+                    UICancelOption.DoNothing);
+            }
+        }
     }
 }
