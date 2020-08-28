@@ -383,6 +383,25 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand moveFileCommand;
+        public DelegateCommand MoveFileCommand {
+            get => moveFileCommand ?? (moveFileCommand = new DelegateCommand(
+                () => {
+                    var fileList = getFileListFromListView(getFocusingListView());
+                    var anotherFileList = getAnotherFileList(fileList);
+
+                    fileList.MarkedFiles.ForEach((f) => {
+                        f.moveTo(anotherFileList.CurrentDirectoryPath);
+                    });
+
+                    fileList.reload();
+                    anotherFileList.reload();
+                },
+                () => { return (getFocusingListView() != null &&
+                                mainFileList.CurrentDirectoryPath != subFileList.CurrentDirectoryPath); }
+            ));
+        }
+
         private DelegateCommand<ListBox> changeToListBoxStyleCommand;
         public DelegateCommand<ListBox> ChangeToListBoxStyleCommand {
             get => changeToListBoxStyleCommand ?? (changeToListBoxStyleCommand = new DelegateCommand<ListBox>(
