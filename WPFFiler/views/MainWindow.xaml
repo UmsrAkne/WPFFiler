@@ -61,8 +61,12 @@
             </MenuItem>
 
             <MenuItem Header="モード(_M)">
-                <MenuItem Header="２画面ファイラ"/>
-                <MenuItem Header="複製画面"/>
+                <MenuItem Header="２画面ファイラ"
+                          Command="{Binding ChangeToTwoScreenModeCommand}"
+                          />
+                <MenuItem Header="複製画面"
+                          Command="{Binding ChangeToMirrorModeCommand}"
+                          />
             </MenuItem>
 
             <MenuItem Header="左画面(_L)">
