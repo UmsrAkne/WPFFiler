@@ -402,24 +402,31 @@ namespace WPFFiler.models {
             ));
         }
 
-        private DelegateCommand<ListBox> changeToListBoxStyleCommand;
-        public DelegateCommand<ListBox> ChangeToListBoxStyleCommand {
-            get => changeToListBoxStyleCommand ?? (changeToListBoxStyleCommand = new DelegateCommand<ListBox>(
-                (ListBox lb) => {
-                    var listBox = lb as ListBox;
-                    var currentFL = getFileListFromListView(listBox);
-                    currentFL.ViewStyle = ViewStyle.ListBox;
-                }
+        private DelegateCommand<ListBox> changeLeftViewStyleToListViewStyleCommand;
+        public DelegateCommand<ListBox> ChangeLeftViewStyleToListViewStyleCommand {
+            get => changeLeftViewStyleToListViewStyleCommand ?? (changeLeftViewStyleToListViewStyleCommand = new DelegateCommand<ListBox>(
+                (lb) => getFileListFromListView(lb).LeftViewStyle = ViewStyle.ListView
             ));
         }
 
-        private DelegateCommand<ListBox> changeToListViewStyleCommand;
-        public DelegateCommand<ListBox> ChangeToListViewStyleCommand {
-            get => changeToListViewStyleCommand ?? (changeToListViewStyleCommand = new DelegateCommand<ListBox>(
-                (ListBox lb) => {
-                    var fl = getFileListFromListView(lb);
-                    fl.ViewStyle = ViewStyle.ListView;
-                }
+        private DelegateCommand<ListBox> changeLeftViewStyleToListBoxStyleCommand;
+        public DelegateCommand<ListBox> ChangeLeftViewStyleToListBoxStyleCommand {
+            get => changeLeftViewStyleToListBoxStyleCommand ?? (changeLeftViewStyleToListBoxStyleCommand = new DelegateCommand<ListBox>(
+                (lb) => getFileListFromListView(lb).LeftViewStyle = ViewStyle.ListBox
+            ));
+        }
+  
+        private DelegateCommand<ListBox> changeRightViewStyleToListViewStyleCommand;
+        public DelegateCommand<ListBox> ChangeRightViewStyleToListViewStyleCommand {
+            get => changeRightViewStyleToListViewStyleCommand ?? (changeRightViewStyleToListViewStyleCommand = new DelegateCommand<ListBox>(
+                (lb) => getFileListFromListView(lb).RightViewStyle = ViewStyle.ListView
+            ));
+        }
+
+        private DelegateCommand<ListBox> changeRightViewStyleToListBoxStyleCommand;
+        public DelegateCommand<ListBox> ChangeRightViewStyleToListBoxStyleCommand {
+            get => changeRightViewStyleToListBoxStyleCommand ?? (changeRightViewStyleToListBoxStyleCommand = new DelegateCommand<ListBox>(
+                (lb) => getFileListFromListView(lb).RightViewStyle = ViewStyle.ListBox
             ));
         }
 

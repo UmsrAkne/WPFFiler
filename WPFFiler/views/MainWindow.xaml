@@ -71,22 +71,22 @@
 
             <MenuItem Header="左画面(_L)">
                 <MenuItem Header="リストビュー(_L)"
-                          Command="{Binding FileListControlCommands.ChangeToListViewStyleCommand}"
+                          Command="{Binding FileListControlCommands.ChangeLeftViewStyleToListViewStyleCommand}"
                           CommandParameter="{Binding ElementName=itemsControlContainer,Path=Content}"
                           />
                 <MenuItem Header="リストボックス(_B)"
-                          Command="{Binding FileListControlCommands.ChangeToListBoxStyleCommand}"
+                          Command="{Binding FileListControlCommands.ChangeLeftViewStyleToListBoxStyleCommand}"
                           CommandParameter="{Binding ElementName=itemsControlContainer,Path=Content}"
                           />
             </MenuItem>
 
             <MenuItem Header="右画面(_R)">
                 <MenuItem Header="リストビュー(_L)"
-                          Command="{Binding FileListControlCommands.ChangeToListViewStyleCommand}"
+                          Command="{Binding FileListControlCommands.ChangeRightViewStyleToListViewStyleCommand}"
                           CommandParameter="{Binding ElementName=subItemsContentContorol,Path=Content}"
                           />
                 <MenuItem Header="リストボックス(_B)"
-                          Command="{Binding FileListControlCommands.ChangeToListBoxStyleCommand}"
+                          Command="{Binding FileListControlCommands.ChangeRightViewStyleToListBoxStyleCommand}"
                           CommandParameter="{Binding ElementName=subItemsContentContorol,Path=Content}"
                           />
             </MenuItem>
@@ -188,7 +188,7 @@
                     <Style TargetType="ContentControl">
                         <Style.Triggers>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.LeftViewStyle}"
                                          Value="ListView"
                                          >
 
@@ -224,7 +224,7 @@
                                 </Setter>
                             </DataTrigger>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FileList.LeftViewStyle}"
                                          Value="ListBox"
                                          >
                                 <Setter Property="Content">
@@ -277,7 +277,7 @@
                     <Style TargetType="ContentControl">
                         <Style.Triggers>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.RightViewStyle}"
                                          Value="ListView"
                                          >
 
@@ -312,7 +312,7 @@
                                 </Setter>
                             </DataTrigger>
 
-                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.ViewStyle}"
+                            <DataTrigger Binding= "{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubFileList.RightViewStyle}"
                                          Value="ListBox"
                                          >
                                 <Setter Property="Content">
