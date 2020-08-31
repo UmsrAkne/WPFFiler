@@ -27,6 +27,8 @@ namespace WPFFiler.models {
             set => SetProperty(ref rightViewStyle, value);
         }
 
+        public bool BothViewBinding { get; set; } = false;
+
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {
             get => files;

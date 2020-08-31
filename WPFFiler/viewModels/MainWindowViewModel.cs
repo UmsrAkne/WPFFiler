@@ -49,6 +49,7 @@ namespace WPFFiler.ViewModels {
                         mainFileListStorage = FileList;
                         subFileListStorage = SubFileList;
                         SubFileList = FileList;
+                        FileList.BothViewBinding = true;
                     }
                 }
             ));
@@ -60,7 +61,10 @@ namespace WPFFiler.ViewModels {
                 () => {
                     if(mainFileListStorage != null || subFileListStorage != null) {
                         FileList = mainFileListStorage;
+                        FileList.BothViewBinding = false;
                         SubFileList = subFileListStorage;
+                        SubFileList.BothViewBinding = false;
+
                         mainFileListStorage = null;
                         subFileListStorage = null;
                     }
