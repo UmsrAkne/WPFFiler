@@ -31,10 +31,12 @@ namespace WPFFiler.models {
             get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
                 () => {
                     var lv = getFocusingListView();
+                    var fl = getFileListFromListView(lv);
+                    List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                     if(lv != null) {
                         FileList currentFileList = getFileListFromListView(lv);
                         currentFileList.SelectedIndex = currentFileList.Files.Count - 1;
-                        lv.ScrollIntoView(lv.SelectedItem);
+                        lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                     }
                 }
             ));
@@ -47,14 +49,15 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         FileList fl = getFileListFromListView(lv);
+                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         if(repeatCount == 0) {
                             fl.SelectedIndex = 0;
-                            lv.ScrollIntoView(lv.SelectedItem);
+                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                             
                         }
                         else {
                             fl.SelectedIndex = repeatCount;
-                            lv.ScrollIntoView(lv.SelectedItem);
+                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                             repeatCount = 0;
                         }
                     }
@@ -68,11 +71,13 @@ namespace WPFFiler.models {
                 () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
+
                         var fl = getFileListFromListView(lv);
+                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
 
                         var action = new Action(() => {
                             fl.SelectedIndex++;
-                            lv.ScrollIntoView(lv.SelectedItem);
+                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                         });
 
                         if(repeatCount == 0) {
@@ -93,9 +98,10 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
+                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         var action = new Action(() => {
                             fl.SelectedIndex--;
-                            lv.ScrollIntoView(lv.SelectedItem);
+                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                         });
 
                         if(repeatCount == 0) {
@@ -116,7 +122,7 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-
+                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         Action action = new Action(() => {
                             if(fl.Files.Count > 0) {
                                 lv.UpdateLayout();
@@ -125,7 +131,7 @@ namespace WPFFiler.models {
                                 // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex -= itemDisplayCapacity;
-                                lv.ScrollIntoView(lv.SelectedItem);
+                                lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                             }
                         });
 
@@ -147,6 +153,7 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
+                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         Action action = new Action(() => {
                             if(fl.Files.Count > 0) {
                                 lv.UpdateLayout();
@@ -156,6 +163,7 @@ namespace WPFFiler.models {
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex += itemDisplayCapacity;
                                 lv.ScrollIntoView(lv.SelectedItem);
+                                lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                             }
                         });
 
