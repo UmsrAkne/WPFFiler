@@ -31,12 +31,10 @@ namespace WPFFiler.models {
             get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
                 () => {
                     var lv = getFocusingListView();
-                    var fl = getFileListFromListView(lv);
-                    List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                     if(lv != null) {
                         FileList currentFileList = getFileListFromListView(lv);
                         currentFileList.SelectedIndex = currentFileList.Files.Count - 1;
-                        lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                        lv.ScrollIntoView(lv.SelectedItem);
                     }
                 }
             ));
@@ -49,15 +47,14 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         FileList fl = getFileListFromListView(lv);
-                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         if(repeatCount == 0) {
                             fl.SelectedIndex = 0;
-                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                            lv.ScrollIntoView(lv.SelectedItem);
                             
                         }
                         else {
                             fl.SelectedIndex = repeatCount;
-                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                            lv.ScrollIntoView(lv.SelectedItem);
                             repeatCount = 0;
                         }
                     }
@@ -71,13 +68,11 @@ namespace WPFFiler.models {
                 () => {
                     var lv = getFocusingListView();
                     if(lv != null) {
-
                         var fl = getFileListFromListView(lv);
-                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
 
                         var action = new Action(() => {
                             fl.SelectedIndex++;
-                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                            lv.ScrollIntoView(lv.SelectedItem);
                         });
 
                         if(repeatCount == 0) {
@@ -98,10 +93,9 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         var action = new Action(() => {
                             fl.SelectedIndex--;
-                            lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                            lv.ScrollIntoView(lv.SelectedItem);
                         });
 
                         if(repeatCount == 0) {
@@ -122,7 +116,7 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
+
                         Action action = new Action(() => {
                             if(fl.Files.Count > 0) {
                                 lv.UpdateLayout();
@@ -131,7 +125,7 @@ namespace WPFFiler.models {
                                 // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex -= itemDisplayCapacity;
-                                lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
+                                lv.ScrollIntoView(lv.SelectedItem);
                             }
                         });
 
@@ -153,7 +147,6 @@ namespace WPFFiler.models {
                     var lv = getFocusingListView();
                     if(lv != null) {
                         var fl = getFileListFromListView(lv);
-                        List<ListBox> lbs = (fl.BothViewBinding) ? getListBoxes() : new List<ListBox>(new ListBox[] { lv });
                         Action action = new Action(() => {
                             if(fl.Files.Count > 0) {
                                 lv.UpdateLayout();
@@ -163,7 +156,6 @@ namespace WPFFiler.models {
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex += itemDisplayCapacity;
                                 lv.ScrollIntoView(lv.SelectedItem);
-                                lbs.ForEach((l) => l.ScrollIntoView(l.SelectedItem));
                             }
                         });
 
@@ -503,46 +495,6 @@ namespace WPFFiler.models {
             }
 
             return (obj != null) ? (ListBox)obj : null;
-        }
-
-        /// <summary>
-        /// ウィンドウに配置されている２つの ListView,ListBox を取得します。
-        /// このメソッドは実装の関係で、Grid.ContentControl.Content == ListView という配置になっていない場合は空のリストを返します。
-        /// View の仕様が変化した場合は完全に動かなくなる可能性があるので注意
-        /// </summary>
-        /// <returns></returns>
-        private List<ListBox> getListBoxes() {
-            if (Keyboard.FocusedElement == null) {
-                return null;
-            }
-
-            var list = new List<ListBox>();
-
-            var obj = (System.Windows.DependencyObject)Keyboard.FocusedElement;
-            while(!(obj is Grid)) {
-                obj = System.Windows.Media.VisualTreeHelper.GetParent(obj);
-
-                if(obj == null) {
-                    break;
-                }
-            }
-
-            if(obj != null) {
-                var cnt = System.Windows.Media.VisualTreeHelper.GetChildrenCount((Grid)obj);
-                for(int i = 0; i < cnt; i++) {
-                    ContentControl l = System.Windows.Media.VisualTreeHelper.GetChild(obj, i) as ContentControl;
-                    if(l != null) {
-                        list.Add((ListBox)l.Content);
-                    }
-
-                    // 配置されている、ListViewを含むContentControl は２つであるため、要素数が２になった時点で終了で良い。
-                    if(list.Count == 2) {
-                        break;
-                    }
-                }
-            }
-
-            return list;
         }
 
         /// <summary>
