@@ -34,7 +34,6 @@ namespace WPFFiler.models {
                     if(lv != null) {
                         FileList currentFileList = getFileListFromListView(lv);
                         currentFileList.SelectedIndex = currentFileList.Files.Count - 1;
-                        lv.ScrollIntoView(lv.SelectedItem);
                     }
                 }
             ));
@@ -49,12 +48,10 @@ namespace WPFFiler.models {
                         FileList fl = getFileListFromListView(lv);
                         if(repeatCount == 0) {
                             fl.SelectedIndex = 0;
-                            lv.ScrollIntoView(lv.SelectedItem);
                             
                         }
                         else {
                             fl.SelectedIndex = repeatCount;
-                            lv.ScrollIntoView(lv.SelectedItem);
                             repeatCount = 0;
                         }
                     }
@@ -72,7 +69,6 @@ namespace WPFFiler.models {
 
                         var action = new Action(() => {
                             fl.SelectedIndex++;
-                            lv.ScrollIntoView(lv.SelectedItem);
                         });
 
                         if(repeatCount == 0) {
@@ -95,7 +91,6 @@ namespace WPFFiler.models {
                         var fl = getFileListFromListView(lv);
                         var action = new Action(() => {
                             fl.SelectedIndex--;
-                            lv.ScrollIntoView(lv.SelectedItem);
                         });
 
                         if(repeatCount == 0) {
@@ -125,7 +120,6 @@ namespace WPFFiler.models {
                                 // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex -= itemDisplayCapacity;
-                                lv.ScrollIntoView(lv.SelectedItem);
                             }
                         });
 
@@ -155,7 +149,6 @@ namespace WPFFiler.models {
                                 // -1 ではなく -2 なのでは、listBox.ActualHeight に header も含まれていると思われるためその分 -1
                                 int itemDisplayCapacity = (int)Math.Floor(lv.ActualHeight / lbItem.ActualHeight) - 2;
                                 fl.SelectedIndex += itemDisplayCapacity;
-                                lv.ScrollIntoView(lv.SelectedItem);
                             }
                         });
 
@@ -198,7 +191,6 @@ namespace WPFFiler.models {
 
                             // ディレクトリの中身が存在する場合はスクロール処理も行う
                             if(fl.Files.Count > 0) {
-                                lv.ScrollIntoView(lv.Items.GetItemAt(0));
                             }
                         }
                         else {
@@ -496,6 +488,7 @@ namespace WPFFiler.models {
 
             return (obj != null) ? (ListBox)obj : null;
         }
+
 
         /// <summary>
         /// ListView から、それに紐付いている FileList モデルを取得します。
