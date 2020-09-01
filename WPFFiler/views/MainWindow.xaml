@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:WPFFiler.Views"
+        xmlns:models="clr-namespace:WPFFiler.models"
         xmlns:dc="clr-namespace:WPFFiler.ViewModels"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -197,6 +199,10 @@
                                         <ListView ItemsSource="{Binding FileList.Files}"
                                                   SelectedIndex="{Binding FileList.SelectedIndex}"
                                                   >
+                                            <i:Interaction.Behaviors>
+                                                <models:ScrollBehavior/>
+                                            </i:Interaction.Behaviors>
+
                                             <ListView.Style>
                                                 <Style TargetType="ListView">
                                                     <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemContainerStyle}">
@@ -286,6 +292,11 @@
                                         <ListView ItemsSource="{Binding SubFileList.Files}"
                                                   SelectedIndex="{Binding SubFileList.SelectedIndex}"
                                                   >
+
+                                            <i:Interaction.Behaviors>
+                                                <models:ScrollBehavior/>
+                                            </i:Interaction.Behaviors>
+
                                             <ListView.Style>
                                                 <Style TargetType="ListView">
                                                     <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemContainerStyle}">
