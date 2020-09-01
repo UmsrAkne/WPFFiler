@@ -82,7 +82,7 @@
                        Width="80"
                        />
 
-                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content}"
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem},Path=Content.Content.Name}"
                            TextWrapping="Wrap"
                            />
             </StackPanel>
