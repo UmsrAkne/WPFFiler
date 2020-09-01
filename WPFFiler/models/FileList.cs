@@ -15,11 +15,19 @@ public enum ViewStyle {
 namespace WPFFiler.models {
     public class FileList : BindableBase{
 
-        private ViewStyle viewStyle = ViewStyle.ListView;
-        public ViewStyle ViewStyle {
-            get => viewStyle;
-            set => SetProperty(ref viewStyle, value);
+        private ViewStyle leftViewStyle = ViewStyle.ListView;
+        public ViewStyle LeftViewStyle {
+            get => leftViewStyle;
+            set => SetProperty(ref leftViewStyle, value);
         }
+
+        private ViewStyle rightViewStyle = ViewStyle.ListView;
+        public ViewStyle RightViewStyle {
+            get => rightViewStyle;
+            set => SetProperty(ref rightViewStyle, value);
+        }
+
+        public bool BothViewBinding { get; set; } = false;
 
         private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
         public ObservableCollection<ExFile> Files {

@@ -8,18 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFFiler.models;
 using Prism.Services.Dialogs;
+using Prism.Commands;
 
 namespace WPFFiler.ViewModels {
     class MainWindowViewModel : BindableBase {
+        private FileList fileList = new FileList(@"C:\");
         public FileList FileList {
-            get;
-            private set;
-        } = new FileList(@"C:\");
+            get => fileList;
+            private set => SetProperty(ref fileList, value);
+        }
 
+        private FileList mainFileListStorage = null;
+
+        private FileList subFileList = new FileList(@"C:\");
         public FileList SubFileList {
-            get;
-            private set;
-        } = new FileList(@"C:\");
+            get => subFileList;
+            private set => SetProperty(ref subFileList, value);
+        }
+
+        private FileList subFileListStorage = null;
 
         private FileListControlCommands fileListControlCommands;
         public FileListControlCommands FileListControlCommands {
@@ -34,5 +41,35 @@ namespace WPFFiler.ViewModels {
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
         }
 
+        private DelegateCommand changeToMirrorModeCommand;
+        public DelegateCommand ChangeToMirrorModeCommand {
+            get => changeToMirrorModeCommand ?? (changeToMirrorModeCommand = new DelegateCommand(
+                () => {
+                    if(mainFileListStorage == null && subFileListStorage == null) {
+                        mainFileListStorage = FileList;
+                        subFileListStorage = SubFileList;
+                        SubFileList = FileList;
+                        FileList.BothViewBinding = true;
+                    }
+                }
+            ));
+        }
+
+        private DelegateCommand changeToTwoScreenModeCommand;
+        public DelegateCommand ChangeToTwoScreenModeCommand {
+            get => changeToTwoScreenModeCommand ?? (changeToTwoScreenModeCommand = new DelegateCommand(
+                () => {
+                    if(mainFileListStorage != null || subFileListStorage != null) {
+                        FileList = mainFileListStorage;
+                        FileList.BothViewBinding = false;
+                        SubFileList = subFileListStorage;
+                        SubFileList.BothViewBinding = false;
+
+                        mainFileListStorage = null;
+                        subFileListStorage = null;
+                    }
+                }
+            ));
+        }
     }
 }
