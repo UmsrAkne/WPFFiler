@@ -29,8 +29,8 @@ namespace WPFFiler.models {
 
         public bool BothViewBinding { get; set; } = false;
 
-        private ObservableCollection<ExFile> files = new ObservableCollection<ExFile>();
-        public ObservableCollection<ExFile> Files {
+        private List<ExFile> files = new List<ExFile>();
+        public List<ExFile> Files {
             get => files;
             set => SetProperty(ref files, value);
         }
@@ -73,20 +73,16 @@ namespace WPFFiler.models {
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
             string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
 
-            Files.Clear();
-            List<ExFile> tempFiles = new List<ExFile>();
+            List<ExFile> allFiles = new List<ExFile>();
             foreach(string p in paths) {
-                tempFiles.Add(new ExFile(p));
+                allFiles.Add(new ExFile(p));
             }
 
-            List<ExFile> tempDirectories = new List<ExFile>();
             foreach(string dp in directoryPaths) {
-                tempDirectories.Add(new ExFile(dp));
+                allFiles.Add(new ExFile(dp));
             }
 
-            Files.AddRange(tempFiles);
-            files.AddRange(tempDirectories);
-
+            Files = allFiles;
             SelectedIndex = 0;
         }
 
