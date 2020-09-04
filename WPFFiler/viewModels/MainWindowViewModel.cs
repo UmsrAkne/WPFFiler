@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WPFFiler.models;
 using Prism.Services.Dialogs;
 using Prism.Commands;
+using System.ComponentModel;
 
 namespace WPFFiler.ViewModels {
     class MainWindowViewModel : BindableBase {
@@ -36,9 +37,24 @@ namespace WPFFiler.ViewModels {
 
         private IDialogService dialogService;
 
+        public String CurrentDirectoriesPath {
+            get {
+                return FileList.CurrentDirectoryPath + " | " + SubFileList.CurrentDirectoryPath;
+            }
+        }
+
         public MainWindowViewModel(IDialogService dialogService) {
             this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
+
+            PropertyChangedEventHandler pcEventHandler = (Object sender, PropertyChangedEventArgs p) => {
+                if (p.PropertyName == nameof(FileList.CurrentDirectoryPath)){
+                    RaisePropertyChanged(nameof(CurrentDirectoriesPath));
+                }
+            };
+
+            FileList.PropertyChanged += pcEventHandler;
+            SubFileList.PropertyChanged += pcEventHandler;
         }
 
         private DelegateCommand changeToMirrorModeCommand;
