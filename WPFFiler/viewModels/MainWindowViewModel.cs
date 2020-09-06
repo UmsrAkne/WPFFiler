@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WPFFiler.models;
 using Prism.Services.Dialogs;
 using Prism.Commands;
+using System.ComponentModel;
 
 namespace WPFFiler.ViewModels {
     class MainWindowViewModel : BindableBase {
@@ -36,9 +37,27 @@ namespace WPFFiler.ViewModels {
 
         private IDialogService dialogService;
 
+        public String CurrentDirectoriesPath {
+            get {
+                DirectoryInfo di1 = new DirectoryInfo(FileList.CurrentDirectoryPath);
+                DirectoryInfo di2 = new DirectoryInfo(SubFileList.CurrentDirectoryPath);
+                return (FileList.BothViewBinding || SubFileList.BothViewBinding)
+                    ? "[複製] " + di1.Name : "[２画面] " + di1.Name + " / " + di2.Name;
+            }
+        }
+
         public MainWindowViewModel(IDialogService dialogService) {
             this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
+
+            PropertyChangedEventHandler pcEventHandler = (Object sender, PropertyChangedEventArgs p) => {
+                if (p.PropertyName == nameof(FileList.CurrentDirectoryPath)){
+                    RaisePropertyChanged(nameof(CurrentDirectoriesPath));
+                }
+            };
+
+            FileList.PropertyChanged += pcEventHandler;
+            SubFileList.PropertyChanged += pcEventHandler;
         }
 
         private DelegateCommand changeToMirrorModeCommand;
@@ -50,6 +69,7 @@ namespace WPFFiler.ViewModels {
                         subFileListStorage = SubFileList;
                         SubFileList = FileList;
                         FileList.BothViewBinding = true;
+                        RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
                 }
             ));
@@ -67,6 +87,7 @@ namespace WPFFiler.ViewModels {
 
                         mainFileListStorage = null;
                         subFileListStorage = null;
+                        RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
                 }
             ));
