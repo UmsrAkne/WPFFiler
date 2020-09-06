@@ -41,7 +41,8 @@ namespace WPFFiler.ViewModels {
             get {
                 DirectoryInfo di1 = new DirectoryInfo(FileList.CurrentDirectoryPath);
                 DirectoryInfo di2 = new DirectoryInfo(SubFileList.CurrentDirectoryPath);
-                return di1.Name + " / " + di2.Name; 
+                return (FileList.BothViewBinding || SubFileList.BothViewBinding)
+                    ? "[複製] " + di1.Name : "[２画面] " + di1.Name + " / " + di2.Name;
             }
         }
 
@@ -68,6 +69,7 @@ namespace WPFFiler.ViewModels {
                         subFileListStorage = SubFileList;
                         SubFileList = FileList;
                         FileList.BothViewBinding = true;
+                        RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
                 }
             ));
@@ -85,6 +87,7 @@ namespace WPFFiler.ViewModels {
 
                         mainFileListStorage = null;
                         subFileListStorage = null;
+                        RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
                 }
             ));
