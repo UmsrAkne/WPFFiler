@@ -39,7 +39,9 @@ namespace WPFFiler.ViewModels {
 
         public String CurrentDirectoriesPath {
             get {
-                return FileList.CurrentDirectoryPath + " | " + SubFileList.CurrentDirectoryPath;
+                DirectoryInfo di1 = new DirectoryInfo(FileList.CurrentDirectoryPath);
+                DirectoryInfo di2 = new DirectoryInfo(SubFileList.CurrentDirectoryPath);
+                return di1.Name + " / " + di2.Name; 
             }
         }
 
