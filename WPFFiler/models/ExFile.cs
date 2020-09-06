@@ -114,10 +114,20 @@ namespace WPFFiler.models {
 
         public void copyTo(string destinationPath) {
             if (IsDirectory) {
-                FileSystem.CopyDirectory(Content.FullName, destinationPath + "\\" + Content.Name);
+                FileSystem.CopyDirectory(
+                    Content.FullName,
+                    destinationPath + "\\" + Content.Name,
+                    UIOption.AllDialogs,
+                    UICancelOption.DoNothing
+                    );
             }
             else {
-                FileSystem.CopyFile(Content.FullName, destinationPath + "\\" + Content.Name);
+                FileSystem.CopyFile(
+                    Content.FullName,
+                    destinationPath + "\\" + Content.Name,
+                    UIOption.AllDialogs,
+                    UICancelOption.DoNothing
+                    );
             }
         }
 
