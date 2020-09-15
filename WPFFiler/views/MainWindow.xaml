@@ -143,6 +143,7 @@
                 <KeyBinding Key="U" Command="{Binding FileListControlCommands.PageUpCommand}" />
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
+                <KeyBinding Key="S" Command="{Binding FileListControlCommands.SyncCurrentDirectoryCommand}" />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Gesture="CTRL+SHIFT+N" Command="{Binding FileListControlCommands.CreateDirectoryCommand}"/>

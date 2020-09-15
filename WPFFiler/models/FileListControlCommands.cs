@@ -177,6 +177,20 @@ namespace WPFFiler.models {
             ));
         }
 
+        private DelegateCommand syncCurrentDirectoryCommand;
+        public DelegateCommand SyncCurrentDirectoryCommand {
+            get => syncCurrentDirectoryCommand ?? (syncCurrentDirectoryCommand = new DelegateCommand(
+                () => {
+                    var lv = getFocusingListView();
+                    if(lv != null) {
+                        var fl = getFileListFromListView(lv);
+                        var af = getAnotherFileList(fl);
+                        af.CurrentDirectoryPath = fl.CurrentDirectoryPath;
+                    }
+                }
+            ));
+        }
+
         private DelegateCommand openCommand;
         public DelegateCommand OpenCommand {
             get => openCommand ?? (openCommand = new DelegateCommand(
