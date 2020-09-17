@@ -144,6 +144,7 @@
                 <KeyBinding Key="G" Command="{Binding FileListControlCommands.MoveCursorToHeadCommand}" />
                 <KeyBinding Key="G" Modifiers="Shift" Command="{Binding FileListControlCommands.MoveCursorToEndCommand}" />
                 <KeyBinding Key="S" Command="{Binding FileListControlCommands.SyncCurrentDirectoryCommand}" />
+                <KeyBinding Key="S" Modifiers="Shift" Command="{Binding FileListControlCommands.SyncFromSubCurrentDirectoryCommand}" />
 
                 <KeyBinding Gesture="CTRL+R" Command="{Binding FileListControlCommands.ReloadCommand}" />
                 <KeyBinding Gesture="CTRL+SHIFT+N" Command="{Binding FileListControlCommands.CreateDirectoryCommand}"/>
