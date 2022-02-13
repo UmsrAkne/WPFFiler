@@ -1,34 +1,41 @@
-﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.FileIO;
-using System.Windows.Media.Imaging;
+﻿namespace WPFFiler.models
+{
+    using Prism.Mvvm;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.VisualBasic.FileIO;
+    using System.Windows.Media.Imaging;
 
-namespace WPFFiler.models {
-    public class ExFile : BindableBase{
+    public class ExFile : BindableBase
+    {
 
         private FileSystemInfo content;
-        public FileSystemInfo Content {
+        public FileSystemInfo Content
+        {
             get => content;
-            set {
+            set
+            {
                 content = value;
             }
         }
 
         private string currentPath;
-        public string CurrentPath {
+        public string CurrentPath
+        {
             get => currentPath;
-            set {
+            set
+            {
                 currentPath = value;
             }
         }
 
         private bool isMarked = false;
-        public bool IsMarked {
+        public bool IsMarked
+        {
             get => isMarked;
             set => SetProperty(ref isMarked, value);
         }
@@ -39,15 +46,18 @@ namespace WPFFiler.models {
         /// Content を使用する場合には、createFile() or createDirectory() を使用して実体を作成してから使用します。
         /// </summary>
         /// <param name="path"></param>
-        public ExFile(string path) {
+        public ExFile(string path)
+        {
             CurrentPath = path;
-            if (!Exists) {
+            if (!Exists)
+            {
                 return;
             }
 
             Content = (Directory.Exists(path)) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
 
-            if (IsImageFile) {
+            if (IsImageFile)
+            {
                 FileStream stream = File.OpenRead(Content.FullName);
                 Thumbnail.BeginInit();
                 Thumbnail.CacheOption = BitmapCacheOption.OnLoad;
@@ -67,11 +77,13 @@ namespace WPFFiler.models {
 
         public string Type { get => (IsDirectory) ? "[DIR]" : Content.Extension; }
 
-        public BitmapImage Thumbnail {
+        public BitmapImage Thumbnail
+        {
             get; private set;
         } = new BitmapImage();
 
-        public Boolean IsImageFile {
+        public Boolean IsImageFile
+        {
             get => new String[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
         }
 
@@ -79,7 +91,8 @@ namespace WPFFiler.models {
         /// CurrentPath の値を使用してファイルを新規作成します。
         /// このメソッドを呼び出すと、Content に FileInfo がセットされます。
         /// </summary>
-        public void createFile() {
+        public void createFile()
+        {
             var f = new FileInfo(CurrentPath);
             File.Create(f.FullName).Close();
             Content = f;
@@ -89,21 +102,25 @@ namespace WPFFiler.models {
         /// CurrentPath の値を使用してディレクトリを作成します。
         /// このメソッドを呼び出すと、Content に DirectoryInfo がセットされます。
         /// </summary>
-        public void createDirectory() {
+        public void createDirectory()
+        {
             var d = new DirectoryInfo(CurrentPath);
             Directory.CreateDirectory(CurrentPath);
             Content = d;
         }
 
-        public void delete() {
-            if (IsDirectory) {
+        public void delete()
+        {
+            if (IsDirectory)
+            {
                 FileSystem.DeleteDirectory(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
                     RecycleOption.SendToRecycleBin
                 );
             }
-            else {
+            else
+            {
                 FileSystem.DeleteFile(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
@@ -112,8 +129,10 @@ namespace WPFFiler.models {
             }
         }
 
-        public void copyTo(string destinationPath) {
-            if (IsDirectory) {
+        public void copyTo(string destinationPath)
+        {
+            if (IsDirectory)
+            {
                 FileSystem.CopyDirectory(
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
@@ -121,7 +140,8 @@ namespace WPFFiler.models {
                     UICancelOption.DoNothing
                     );
             }
-            else {
+            else
+            {
                 FileSystem.CopyFile(
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
@@ -131,15 +151,18 @@ namespace WPFFiler.models {
             }
         }
 
-        public void moveTo(string destinationDirectoryPath) {
-            if (IsDirectory) {
+        public void moveTo(string destinationDirectoryPath)
+        {
+            if (IsDirectory)
+            {
                 FileSystem.MoveDirectory(
                     Content.FullName,
                     destinationDirectoryPath + "\\" + Content.Name,
                     UIOption.AllDialogs,
                     UICancelOption.DoNothing);
             }
-            else {
+            else
+            {
                 FileSystem.MoveFile(
                     Content.FullName,
                     destinationDirectoryPath + "\\" + Content.Name,
