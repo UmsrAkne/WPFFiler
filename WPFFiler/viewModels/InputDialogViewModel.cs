@@ -42,8 +42,7 @@
                     var ret = new DialogResult(ButtonResult.Yes, dialogParameters);
                     dialogParameters.Add("InputText", InputText);
                     this.RequestClose?.Invoke(ret);
-                }
-            ));
+                }));
         }
     }
 }

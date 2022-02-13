@@ -116,16 +116,14 @@
                 FileSystem.DeleteDirectory(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin
-                );
+                    RecycleOption.SendToRecycleBin);
             }
             else
             {
                 FileSystem.DeleteFile(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin
-                );
+                    RecycleOption.SendToRecycleBin);
             }
         }
 
@@ -137,8 +135,7 @@
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
                     UIOption.AllDialogs,
-                    UICancelOption.DoNothing
-                    );
+                    UICancelOption.DoNothing);
             }
             else
             {
@@ -146,8 +143,7 @@
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
                     UIOption.AllDialogs,
-                    UICancelOption.DoNothing
-                    );
+                    UICancelOption.DoNothing);
             }
         }
 

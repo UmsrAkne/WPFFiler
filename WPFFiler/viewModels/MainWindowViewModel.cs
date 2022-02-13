@@ -84,8 +84,7 @@
                         FileList.BothViewBinding = true;
                         RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
-                }
-            ));
+                }));
         }
 
         private DelegateCommand changeToTwoScreenModeCommand;
@@ -105,8 +104,7 @@
                         subFileListStorage = null;
                         RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                     }
-                }
-            ));
+                }));
         }
     }
 }
