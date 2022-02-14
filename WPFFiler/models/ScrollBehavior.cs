@@ -11,7 +11,6 @@
 
     public class ScrollBehavior : Behavior<ListBox>
     {
-
         protected override void OnAttached()
         {
             base.OnAttached();

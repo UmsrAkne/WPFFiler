@@ -1,14 +1,12 @@
 ﻿namespace WPFFiler.Models.Tests
 {
-
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using WPFFiler.Models;
 
-    [TestClass()]
+    [TestClass]
     public class ExFileTests
     {
-
         private readonly string emptyTextFileName0 = "emptyFile0.txt";
         private readonly string emptyTextFileName1 = "emptyFile1.txt";
         private readonly string emptyDirectoryName = "emptyDirectory";
@@ -47,14 +45,14 @@
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ExFileTest()
         {
             FileInfo f0 = new FileInfo(emptyTextFileName0);
             ExFile f = new ExFile(f0.FullName);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ExistsTest()
         {
             // initialize で生成したファイルが存在するか
@@ -70,7 +68,7 @@
             Assert.IsTrue(d.Exists);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void IsDirectoryTest()
         {
             // 存在するディレクトリ
@@ -83,8 +81,8 @@
             Assert.IsFalse(new ExFile("testFileName").IsDirectory);
         }
 
-        [TestMethod()]
-        public void createFileTest()
+        [TestMethod]
+        public void CreateFileTest()
         {
             File.Delete("notExistFile");
 
@@ -98,8 +96,8 @@
             Assert.IsNotNull(f.Content);
         }
 
-        [TestMethod()]
-        public void createDirectoryTest()
+        [TestMethod]
+        public void CreateDirectoryTest()
         {
             Directory.Delete("notExistDirectory");
 

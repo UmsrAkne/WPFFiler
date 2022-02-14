@@ -16,6 +16,34 @@
         private string currentPath;
         private bool isMarked = false;
 
+        /// <summary>
+        /// ExFileインスタンスを生成します。
+        /// 存在しないパスを指定した場合、対象がファイルかディレクトリか確定できないため、Content プロパティに値が入力されません。
+        /// Content を使用する場合には、createFile() or createDirectory() を使用して実体を作成してから使用します。
+        /// </summary>
+        /// <param name="path"></param>
+        public ExFile(string path)
+        {
+            CurrentPath = path;
+            if (!Exists)
+            {
+                return;
+            }
+
+            Content = Directory.Exists(path) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
+
+            if (IsImageFile)
+            {
+                FileStream stream = File.OpenRead(Content.FullName);
+                Thumbnail.BeginInit();
+                Thumbnail.CacheOption = BitmapCacheOption.OnLoad;
+                Thumbnail.StreamSource = stream;
+                Thumbnail.DecodePixelWidth = 80;
+                Thumbnail.EndInit();
+                stream.Close();
+            }
+        }
+
         public FileSystemInfo Content
         {
             get => content;
@@ -40,51 +68,20 @@
             set => SetProperty(ref isMarked, value);
         }
 
-        /// <summary>
-        /// ExFileインスタンスを生成します。
-        /// 存在しないパスを指定した場合、対象がファイルかディレクトリか確定できないため、Content プロパティに値が入力されません。
-        /// Content を使用する場合には、createFile() or createDirectory() を使用して実体を作成してから使用します。
-        /// </summary>
-        /// <param name="path"></param>
-        public ExFile(string path)
-        {
-            CurrentPath = path;
-            if (!Exists)
-            {
-                return;
-            }
-
-            Content = (Directory.Exists(path)) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
-
-            if (IsImageFile)
-            {
-                FileStream stream = File.OpenRead(Content.FullName);
-                Thumbnail.BeginInit();
-                Thumbnail.CacheOption = BitmapCacheOption.OnLoad;
-                Thumbnail.StreamSource = stream;
-                Thumbnail.DecodePixelWidth = 80;
-                Thumbnail.EndInit();
-                stream.Close();
-            }
-        }
-
-        public Boolean Exists { get => (File.Exists(CurrentPath) || Directory.Exists(CurrentPath)); }
+        public Boolean Exists { get => File.Exists(CurrentPath) || Directory.Exists(CurrentPath); }
 
         /// <summary>
         /// 対象がディレクトリであるかを取得します。対象がファイルであるか、存在しない場合は false を返します。
         /// </summary>
-        public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
+        public bool IsDirectory { get => Directory.Exists(CurrentPath); }
 
         public string Type { get => IsDirectory ? "[DIR]" : Content.Extension; }
 
-        public BitmapImage Thumbnail
-        {
-            get; private set;
-        } = new BitmapImage();
+        public BitmapImage Thumbnail { get; private set; } = new BitmapImage();
 
-        public Boolean IsImageFile
+        public bool IsImageFile
         {
-            get => new String[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
+            get => new string[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
         }
 
         /// <summary>

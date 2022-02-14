@@ -1,22 +1,16 @@
 ﻿namespace WPFFiler.Models
 {
-
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
     using System.IO;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using Prism.Commands;
     using Prism.Services.Dialogs;
-    using WPFFiler.Views;
     using WPFFiler.ViewModels;
+    using WPFFiler.Views;
 
     public class FileListControlCommands
     {
-
         private int repeatCount = 0;
         private FileList mainFileList;
         private FileList subFileList;
@@ -83,7 +77,6 @@
                         if (repeatCount == 0)
                         {
                             fl.SelectedIndex = 0;
-
                         }
                         else
                         {
@@ -213,7 +206,6 @@
                             repeatCommand(action);
                         }
                     }
-
                 }));
         }
 
@@ -269,7 +261,6 @@
                     var lv = getFocusingListView();
                     if (lv != null)
                     {
-
                         var fl = getFileListFromListView(lv);
                         ExFile currentFile = (ExFile)fl.Files[fl.SelectedIndex];
                         if (currentFile.IsDirectory)
@@ -324,7 +315,7 @@
                     }
 
                     var fl = getFileListFromListView(lv);
-                    return (new DirectoryInfo(fl.CurrentDirectoryPath).Parent != null);
+                    return new DirectoryInfo(fl.CurrentDirectoryPath).Parent != null;
                 }));
         }
 
@@ -356,21 +347,20 @@
 
                     var fl = getFileListFromListView(lv);
 
-                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(),
-                        (IDialogResult result) =>
+                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(), (IDialogResult result) =>
+                    {
+                        System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
+                        if (result != null)
                         {
-                            System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
-                            if (result != null)
+                            string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
+                            if (!string.IsNullOrEmpty(r))
                             {
-                                string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
-                                if (!string.IsNullOrEmpty(r))
-                                {
-                                    ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
-                                    directory.createDirectory();
-                                    fl.reload();
-                                }
+                                ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
+                                directory.createDirectory();
+                                fl.reload();
                             }
-                        });
+                        }
+                    });
                 }));
         }
 
@@ -501,8 +491,7 @@
                 },
                 () =>
                 {
-                    return (getFocusingListView() != null &&
-                            mainFileList.CurrentDirectoryPath != subFileList.CurrentDirectoryPath);
+                    return getFocusingListView() != null && mainFileList.CurrentDirectoryPath != subFileList.CurrentDirectoryPath;
                 }));
         }
 
@@ -556,10 +545,10 @@
             get => setRepeatCountCommand ?? (setRepeatCountCommand = new DelegateCommand<object>(
                 (object param) =>
                 {
-
                     string numberString = param.ToString().Substring(1);
-                    // パラメーターに入ってくる文字列は "d0" から "d9" までの10種類。
-                    // dxの数字部分が、数字キーと対応している。
+
+                    /// パラメーターに入ってくる文字列は "d0" から "d9" までの10種類。
+                    /// dxの数字部分が、数字キーと対応している。
 
                     if (repeatCount == 0)
                     {
@@ -575,7 +564,6 @@
                     {
                         repeatCount = 100;
                     }
-
                 }));
         }
 
@@ -652,6 +640,5 @@
 
             repeatCount = 0;
         }
-
     }
 }

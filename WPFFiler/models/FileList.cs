@@ -1,10 +1,4 @@
-﻿public enum ViewStyle
-{
-    ListView,
-    ListBox
-}
-
-namespace WPFFiler.Models
+﻿namespace WPFFiler.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,13 +9,25 @@ namespace WPFFiler.Models
     using System.Threading.Tasks;
     using Prism.Mvvm;
 
+    public enum ViewStyle
+    {
+        ListView,
+        ListBox
+    }
+
     public class FileList : BindableBase
     {
         private ViewStyle leftViewStyle = ViewStyle.ListView;
         private ViewStyle rightViewStyle = ViewStyle.ListView;
         private List<ExFile> files = new List<ExFile>();
-        private string currentDirectoryPath = "";
+        private string currentDirectoryPath = string.Empty;
         private int selectedIndex = 0;
+
+        public FileList(string baseDirectoryPath)
+        {
+            currentDirectoryPath = baseDirectoryPath;
+            reload();
+        }
 
         public ViewStyle LeftViewStyle
         {
@@ -75,12 +81,6 @@ namespace WPFFiler.Models
 
                 SetProperty(ref selectedIndex, value);
             }
-        }
-
-        public FileList(string baseDirectoryPath)
-        {
-            currentDirectoryPath = baseDirectoryPath;
-            reload();
         }
 
         public void reload()

@@ -1,12 +1,12 @@
 ﻿namespace WPFFiler.ViewModels
 {
     using System;
+    using System.ComponentModel;
     using System.IO;
-    using WPFFiler.Models;
     using Prism.Commands;
     using Prism.Mvvm;
     using Prism.Services.Dialogs;
-    using System.ComponentModel;
+    using WPFFiler.Models;
 
     public class MainWindowViewModel : BindableBase
     {
@@ -36,7 +36,6 @@
             SubFileList.PropertyChanged += pcEventHandler;
         }
 
-
         public FileList FileList
         {
             get => fileList;
@@ -55,7 +54,7 @@
             set => SetProperty(ref fileListControlCommands, value);
         }
 
-        public String CurrentDirectoriesPath
+        public string CurrentDirectoriesPath
         {
             get
             {
