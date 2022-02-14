@@ -62,7 +62,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="models\ExFileTests.cs" />
+    <Compile Include="Models\ExFileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

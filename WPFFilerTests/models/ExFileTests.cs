@@ -1,9 +1,9 @@
-﻿namespace WPFFiler.models.Tests
+﻿namespace WPFFiler.Models.Tests
 {
 
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using WPFFiler.models;
+    using WPFFiler.Models;
 
     [TestClass()]
     public class ExFileTests

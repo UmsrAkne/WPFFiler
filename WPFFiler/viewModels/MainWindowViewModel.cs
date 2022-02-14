@@ -2,7 +2,7 @@
 {
     using System;
     using System.IO;
-    using WPFFiler.models;
+    using WPFFiler.Models;
     using Prism.Commands;
     using Prism.Mvvm;
     using Prism.Services.Dialogs;

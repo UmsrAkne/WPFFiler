@@ -1,4 +1,4 @@
-﻿namespace WPFFiler.models
+﻿namespace WPFFiler.Models
 {
     using System;
     using System.Collections.Generic;
