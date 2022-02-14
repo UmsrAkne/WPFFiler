@@ -1,19 +1,21 @@
 ﻿namespace WPFFiler.models
 {
-    using Prism.Mvvm;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.VisualBasic.FileIO;
     using System.Windows.Media.Imaging;
+    using Microsoft.VisualBasic.FileIO;
+    using Prism.Mvvm;
 
     public class ExFile : BindableBase
     {
-
         private FileSystemInfo content;
+        private string currentPath;
+        private bool isMarked = false;
+
         public FileSystemInfo Content
         {
             get => content;
@@ -23,7 +25,6 @@
             }
         }
 
-        private string currentPath;
         public string CurrentPath
         {
             get => currentPath;
@@ -33,7 +34,6 @@
             }
         }
 
-        private bool isMarked = false;
         public bool IsMarked
         {
             get => isMarked;
@@ -75,7 +75,7 @@
         /// </summary>
         public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
 
-        public string Type { get => (IsDirectory) ? "[DIR]" : Content.Extension; }
+        public string Type { get => IsDirectory ? "[DIR]" : Content.Extension; }
 
         public BitmapImage Thumbnail
         {

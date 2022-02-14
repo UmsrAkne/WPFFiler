@@ -6,8 +6,6 @@
 
 namespace WPFFiler.models
 {
-
-    using Prism.Mvvm;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -15,18 +13,22 @@ namespace WPFFiler.models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Prism.Mvvm;
 
     public class FileList : BindableBase
     {
-
         private ViewStyle leftViewStyle = ViewStyle.ListView;
+        private ViewStyle rightViewStyle = ViewStyle.ListView;
+        private List<ExFile> files = new List<ExFile>();
+        private string currentDirectoryPath = "";
+        private int selectedIndex = 0;
+
         public ViewStyle LeftViewStyle
         {
             get => leftViewStyle;
             set => SetProperty(ref leftViewStyle, value);
         }
 
-        private ViewStyle rightViewStyle = ViewStyle.ListView;
         public ViewStyle RightViewStyle
         {
             get => rightViewStyle;
@@ -35,14 +37,12 @@ namespace WPFFiler.models
 
         public bool BothViewBinding { get; set; } = false;
 
-        private List<ExFile> files = new List<ExFile>();
         public List<ExFile> Files
         {
             get => files;
             set => SetProperty(ref files, value);
         }
 
-        private string currentDirectoryPath = "";
         public string CurrentDirectoryPath
         {
             get => currentDirectoryPath;
@@ -56,7 +56,6 @@ namespace WPFFiler.models
             }
         }
 
-        private int selectedIndex = 0;
         public int SelectedIndex
         {
             get => selectedIndex;

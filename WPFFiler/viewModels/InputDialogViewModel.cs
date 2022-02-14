@@ -11,9 +11,11 @@
 
     public class InputDialogViewModel : BindableBase, IDialogAware
     {
+        private string inputText = "";
+        private DelegateCommand finishCommand;
+
         public string Title => "inputDialog";
 
-        private string inputText = "";
         public string InputText
         {
             get => inputText;
@@ -32,7 +34,6 @@
         {
         }
 
-        private DelegateCommand finishCommand;
         public DelegateCommand FinishCommand
         {
             get => finishCommand ?? (finishCommand = new DelegateCommand(
