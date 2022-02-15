@@ -3,7 +3,6 @@
     /// <summary>
     /// App.xaml の相互作用ロジック
     /// </summary>
-
     using System;
     using System.Collections.Generic;
     using System.Configuration;
