@@ -90,7 +90,7 @@
             Assert.IsFalse(f.Exists);
             Assert.IsNull(f.Content);
 
-            f.createFile();
+            f.CreateFile();
             Assert.IsTrue(f.Exists);
             Assert.IsFalse(f.IsDirectory);
             Assert.IsNotNull(f.Content);
@@ -105,7 +105,7 @@
             Assert.IsFalse(d.Exists);
             Assert.IsNull(d.Content);
 
-            d.createDirectory();
+            d.CreateDirectory();
             Assert.IsTrue(d.Exists);
             Assert.IsTrue(d.IsDirectory);
             Assert.IsNotNull(d.Content);

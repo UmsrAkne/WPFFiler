@@ -88,7 +88,7 @@
         /// CurrentPath の値を使用してファイルを新規作成します。
         /// このメソッドを呼び出すと、Content に FileInfo がセットされます。
         /// </summary>
-        public void createFile()
+        public void CreateFile()
         {
             var f = new FileInfo(CurrentPath);
             File.Create(f.FullName).Close();
@@ -99,14 +99,14 @@
         /// CurrentPath の値を使用してディレクトリを作成します。
         /// このメソッドを呼び出すと、Content に DirectoryInfo がセットされます。
         /// </summary>
-        public void createDirectory()
+        public void CreateDirectory()
         {
             var d = new DirectoryInfo(CurrentPath);
             Directory.CreateDirectory(CurrentPath);
             Content = d;
         }
 
-        public void delete()
+        public void Delete()
         {
             if (IsDirectory)
             {
@@ -124,7 +124,7 @@
             }
         }
 
-        public void copyTo(string destinationPath)
+        public void CopyTo(string destinationPath)
         {
             if (IsDirectory)
             {
@@ -144,7 +144,7 @@
             }
         }
 
-        public void moveTo(string destinationDirectoryPath)
+        public void MoveTo(string destinationDirectoryPath)
         {
             if (IsDirectory)
             {

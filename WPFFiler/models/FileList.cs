@@ -26,7 +26,7 @@
         public FileList(string baseDirectoryPath)
         {
             currentDirectoryPath = baseDirectoryPath;
-            reload();
+            Reload();
         }
 
         public ViewStyle LeftViewStyle
@@ -57,7 +57,7 @@
                 if (Directory.Exists(value))
                 {
                     SetProperty(ref currentDirectoryPath, value);
-                    reload();
+                    Reload();
                 }
             }
         }
@@ -91,7 +91,7 @@
             }
         }
 
-        public void reload()
+        public void Reload()
         {
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
             string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
@@ -111,7 +111,7 @@
             SelectedIndex = 0;
         }
 
-        public void raiseMakedFilesChanged()
+        public void RaiseMakedFilesChanged()
         {
             RaisePropertyChanged(nameof(MarkedFiles));
         }
