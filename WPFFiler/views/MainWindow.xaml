@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:WPFFiler.Views"
-        xmlns:models="clr-namespace:WPFFiler.models"
+        xmlns:models="clr-namespace:WPFFiler.Models"
         xmlns:dc="clr-namespace:WPFFiler.ViewModels"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -48,7 +48,7 @@
                     />
 
     </Window.InputBindings>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -100,7 +100,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBox x:Name="urlBar"
                      Text="{Binding FileList.CurrentDirectoryPath}"
                      Grid.Column="0"
@@ -181,7 +181,7 @@
                             CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
                 <KeyBinding Key="D9" Command="{Binding FileListControlCommands.SetRepeatCountCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=Key}"/>
-                
+
             </Grid.InputBindings>
 
 
@@ -358,7 +358,7 @@
                 </ContentControl.Style>
 
             </ContentControl>
-            
+
             <StatusBar VerticalAlignment="Bottom"
                        Grid.Row="1"
                        Grid.Column="1"

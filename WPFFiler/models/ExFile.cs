@@ -1,44 +1,20 @@
-﻿namespace WPFFiler.models
+﻿namespace WPFFiler.Models
 {
-    using Prism.Mvvm;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.VisualBasic.FileIO;
     using System.Windows.Media.Imaging;
+    using Microsoft.VisualBasic.FileIO;
+    using Prism.Mvvm;
 
     public class ExFile : BindableBase
     {
-
         private FileSystemInfo content;
-        public FileSystemInfo Content
-        {
-            get => content;
-            set
-            {
-                content = value;
-            }
-        }
-
         private string currentPath;
-        public string CurrentPath
-        {
-            get => currentPath;
-            set
-            {
-                currentPath = value;
-            }
-        }
-
         private bool isMarked = false;
-        public bool IsMarked
-        {
-            get => isMarked;
-            set => SetProperty(ref isMarked, value);
-        }
 
         /// <summary>
         /// ExFileインスタンスを生成します。
@@ -54,7 +30,7 @@
                 return;
             }
 
-            Content = (Directory.Exists(path)) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
+            Content = Directory.Exists(path) ? (FileSystemInfo)new DirectoryInfo(path) : (FileSystemInfo)new FileInfo(path);
 
             if (IsImageFile)
             {
@@ -68,30 +44,51 @@
             }
         }
 
-        public Boolean Exists { get => (File.Exists(CurrentPath) || Directory.Exists(CurrentPath)); }
+        public FileSystemInfo Content
+        {
+            get => content;
+            set
+            {
+                content = value;
+            }
+        }
+
+        public string CurrentPath
+        {
+            get => currentPath;
+            set
+            {
+                currentPath = value;
+            }
+        }
+
+        public bool IsMarked
+        {
+            get => isMarked;
+            set => SetProperty(ref isMarked, value);
+        }
+
+        public bool Exists { get => File.Exists(CurrentPath) || Directory.Exists(CurrentPath); }
 
         /// <summary>
         /// 対象がディレクトリであるかを取得します。対象がファイルであるか、存在しない場合は false を返します。
         /// </summary>
-        public Boolean IsDirectory { get => (Directory.Exists(CurrentPath)); }
+        public bool IsDirectory { get => Directory.Exists(CurrentPath); }
 
-        public string Type { get => (IsDirectory) ? "[DIR]" : Content.Extension; }
+        public string Type { get => IsDirectory ? "[DIR]" : Content.Extension; }
 
-        public BitmapImage Thumbnail
+        public BitmapImage Thumbnail { get; private set; } = new BitmapImage();
+
+        public bool IsImageFile
         {
-            get; private set;
-        } = new BitmapImage();
-
-        public Boolean IsImageFile
-        {
-            get => new String[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
+            get => new string[] { ".jpg", ".png", ".bmp" }.Contains(Content.Extension);
         }
 
         /// <summary>
         /// CurrentPath の値を使用してファイルを新規作成します。
         /// このメソッドを呼び出すと、Content に FileInfo がセットされます。
         /// </summary>
-        public void createFile()
+        public void CreateFile()
         {
             var f = new FileInfo(CurrentPath);
             File.Create(f.FullName).Close();
@@ -102,34 +99,32 @@
         /// CurrentPath の値を使用してディレクトリを作成します。
         /// このメソッドを呼び出すと、Content に DirectoryInfo がセットされます。
         /// </summary>
-        public void createDirectory()
+        public void CreateDirectory()
         {
             var d = new DirectoryInfo(CurrentPath);
             Directory.CreateDirectory(CurrentPath);
             Content = d;
         }
 
-        public void delete()
+        public void Delete()
         {
             if (IsDirectory)
             {
                 FileSystem.DeleteDirectory(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin
-                );
+                    RecycleOption.SendToRecycleBin);
             }
             else
             {
                 FileSystem.DeleteFile(
                     Content.FullName,
                     UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin
-                );
+                    RecycleOption.SendToRecycleBin);
             }
         }
 
-        public void copyTo(string destinationPath)
+        public void CopyTo(string destinationPath)
         {
             if (IsDirectory)
             {
@@ -137,8 +132,7 @@
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
                     UIOption.AllDialogs,
-                    UICancelOption.DoNothing
-                    );
+                    UICancelOption.DoNothing);
             }
             else
             {
@@ -146,12 +140,11 @@
                     Content.FullName,
                     destinationPath + "\\" + Content.Name,
                     UIOption.AllDialogs,
-                    UICancelOption.DoNothing
-                    );
+                    UICancelOption.DoNothing);
             }
         }
 
-        public void moveTo(string destinationDirectoryPath)
+        public void MoveTo(string destinationDirectoryPath)
         {
             if (IsDirectory)
             {

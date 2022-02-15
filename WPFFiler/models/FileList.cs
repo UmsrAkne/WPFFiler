@@ -1,13 +1,5 @@
-﻿public enum ViewStyle
+﻿namespace WPFFiler.Models
 {
-    ListView,
-    ListBox
-}
-
-namespace WPFFiler.models
-{
-
-    using Prism.Mvvm;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -15,18 +7,34 @@ namespace WPFFiler.models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Prism.Mvvm;
+
+    public enum ViewStyle
+    {
+        ListView,
+        ListBox
+    }
 
     public class FileList : BindableBase
     {
-
         private ViewStyle leftViewStyle = ViewStyle.ListView;
+        private ViewStyle rightViewStyle = ViewStyle.ListView;
+        private List<ExFile> files = new List<ExFile>();
+        private string currentDirectoryPath = string.Empty;
+        private int selectedIndex = 0;
+
+        public FileList(string baseDirectoryPath)
+        {
+            currentDirectoryPath = baseDirectoryPath;
+            Reload();
+        }
+
         public ViewStyle LeftViewStyle
         {
             get => leftViewStyle;
             set => SetProperty(ref leftViewStyle, value);
         }
 
-        private ViewStyle rightViewStyle = ViewStyle.ListView;
         public ViewStyle RightViewStyle
         {
             get => rightViewStyle;
@@ -35,14 +43,12 @@ namespace WPFFiler.models
 
         public bool BothViewBinding { get; set; } = false;
 
-        private List<ExFile> files = new List<ExFile>();
         public List<ExFile> Files
         {
             get => files;
             set => SetProperty(ref files, value);
         }
 
-        private string currentDirectoryPath = "";
         public string CurrentDirectoryPath
         {
             get => currentDirectoryPath;
@@ -51,12 +57,11 @@ namespace WPFFiler.models
                 if (Directory.Exists(value))
                 {
                     SetProperty(ref currentDirectoryPath, value);
-                    reload();
+                    Reload();
                 }
             }
         }
 
-        private int selectedIndex = 0;
         public int SelectedIndex
         {
             get => selectedIndex;
@@ -78,13 +83,15 @@ namespace WPFFiler.models
             }
         }
 
-        public FileList(string baseDirectoryPath)
+        public List<ExFile> MarkedFiles
         {
-            currentDirectoryPath = baseDirectoryPath;
-            reload();
+            get
+            {
+                return Files.Where((f) => f.IsMarked).ToList();
+            }
         }
 
-        public void reload()
+        public void Reload()
         {
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
             string[] directoryPaths = Directory.GetDirectories(CurrentDirectoryPath);
@@ -104,15 +111,7 @@ namespace WPFFiler.models
             SelectedIndex = 0;
         }
 
-        public List<ExFile> MarkedFiles
-        {
-            get
-            {
-                return Files.Where((f) => f.IsMarked).ToList();
-            }
-        }
-
-        public void raiseMakedFilesChanged()
+        public void RaiseMakedFilesChanged()
         {
             RaisePropertyChanged(nameof(MarkedFiles));
         }

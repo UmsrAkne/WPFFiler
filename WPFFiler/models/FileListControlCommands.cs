@@ -1,26 +1,48 @@
-﻿namespace WPFFiler.models
+﻿namespace WPFFiler.Models
 {
-
-    using Prism.Commands;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
     using System.IO;
     using System.Windows.Controls;
+    using System.Windows.Input;
+    using Prism.Commands;
     using Prism.Services.Dialogs;
-    using WPFFiler.Views;
     using WPFFiler.ViewModels;
+    using WPFFiler.Views;
 
     public class FileListControlCommands
     {
-
         private int repeatCount = 0;
         private FileList mainFileList;
         private FileList subFileList;
         private IDialogService dialogService;
+
+        private DelegateCommand moveCursorToEndCommand;
+        private DelegateCommand moveCursorToHeadCommand;
+        private DelegateCommand downCursorCommand;
+        private DelegateCommand upCursorCommand;
+        private DelegateCommand pageUpCommand;
+        private DelegateCommand pageDownCommand;
+        private DelegateCommand reloadCommand;
+        private DelegateCommand syncCurrentDirectoryCommand;
+        private DelegateCommand syncFromSubCurrentDirectoryCommand;
+        private DelegateCommand openCommand;
+        private DelegateCommand moveToParentDirectory;
+        private DelegateCommand<string> moveToDirectory;
+        private DelegateCommand<string> moveToDirectoryForSubFileList;
+        private DelegateCommand createDirectoryCommand;
+        private DelegateCommand deleteMarkedFilesCommand;
+        private DelegateCommand toggleMarkCommand;
+        private DelegateCommand markCommand;
+        private DelegateCommand unmarkCommand;
+        private DelegateCommand copyFileCommand;
+        private DelegateCommand moveFileCommand;
+        private DelegateCommand<ListBox> changeLeftViewStyleToListViewStyleCommand;
+        private DelegateCommand<ListBox> changeLeftViewStyleToListBoxStyleCommand;
+        private DelegateCommand<ListBox> changeRightViewStyleToListViewStyleCommand;
+        private DelegateCommand<ListBox> changeRightViewStyleToListBoxStyleCommand;
+        private DelegateCommand<object> focusCommand;
+        private DelegateCommand<object> focusToURLBarCommandCommand;
+        private DelegateCommand<object> setRepeatCountCommand;
 
         public FileListControlCommands(IDialogService ds, FileList main, FileList sub)
         {
@@ -29,36 +51,32 @@
             dialogService = ds;
         }
 
-        private DelegateCommand moveCursorToEndCommand;
         public DelegateCommand MoveCursorToEndCommand
         {
             get => moveCursorToEndCommand ?? (moveCursorToEndCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        FileList currentFileList = getFileListFromListView(lv);
+                        FileList currentFileList = GetFileListFromListView(lv);
                         currentFileList.SelectedIndex = currentFileList.Files.Count - 1;
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand moveCursorToHeadCommand;
         public DelegateCommand MoveCursorToHeadCommand
         {
             get => moveCursorToHeadCommand ?? (moveCursorToHeadCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        FileList fl = getFileListFromListView(lv);
+                        FileList fl = GetFileListFromListView(lv);
                         if (repeatCount == 0)
                         {
                             fl.SelectedIndex = 0;
-
                         }
                         else
                         {
@@ -66,20 +84,18 @@
                             repeatCount = 0;
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand downCursorCommand;
         public DelegateCommand DownCursorCommand
         {
             get => downCursorCommand ?? (downCursorCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
 
                         var action = new Action(() =>
                         {
@@ -92,23 +108,21 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand upCursorCommand;
         public DelegateCommand UpCursorCommand
         {
             get => upCursorCommand ?? (upCursorCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         var action = new Action(() =>
                         {
                             fl.SelectedIndex--;
@@ -120,23 +134,21 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand pageUpCommand;
         public DelegateCommand PageUpCommand
         {
             get => pageUpCommand ?? (pageUpCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
 
                         Action action = new Action(() =>
                         {
@@ -157,23 +169,21 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand pageDownCommand;
         public DelegateCommand PageDownCommand
         {
             get => pageDownCommand ?? (pageDownCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         Action action = new Action(() =>
                         {
                             if (fl.Files.Count > 0)
@@ -193,75 +203,65 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand reloadCommand;
         public DelegateCommand ReloadCommand
         {
             get => reloadCommand ?? (reloadCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
-                        fl?.reload();
+                        var fl = GetFileListFromListView(lv);
+                        fl?.Reload();
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand syncCurrentDirectoryCommand;
         public DelegateCommand SyncCurrentDirectoryCommand
         {
             get => syncCurrentDirectoryCommand ?? (syncCurrentDirectoryCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
-                        var af = getAnotherFileList(fl);
+                        var fl = GetFileListFromListView(lv);
+                        var af = GetAnotherFileList(fl);
                         af.CurrentDirectoryPath = fl.CurrentDirectoryPath;
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand syncFromSubCurrentDirectoryCommand;
         public DelegateCommand SyncFromSubCurrentDirectoryCommand
         {
             get => syncFromSubCurrentDirectoryCommand ?? (syncFromSubCurrentDirectoryCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
-                        var af = getAnotherFileList(fl);
+                        var fl = GetFileListFromListView(lv);
+                        var af = GetAnotherFileList(fl);
                         fl.CurrentDirectoryPath = af.CurrentDirectoryPath;
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand openCommand;
         public DelegateCommand OpenCommand
         {
             get => openCommand ?? (openCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         ExFile currentFile = (ExFile)fl.Files[fl.SelectedIndex];
                         if (currentFile.IsDirectory)
                         {
@@ -277,27 +277,25 @@
                             System.Diagnostics.Process.Start(currentFile.Content.FullName);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand moveToParentDirectory;
         public DelegateCommand MoveToParentDirectory
         {
             get => moveToParentDirectory ?? (moveToParentDirectory = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         if (repeatCount == 0)
                         {
                             fl.CurrentDirectoryPath = new DirectoryInfo(fl.CurrentDirectoryPath).Parent.FullName;
                         }
                         else
                         {
-                            repeatCommand(() =>
+                            RepeatCommand(() =>
                             {
                                 var parentDirectory = new DirectoryInfo(fl.CurrentDirectoryPath).Parent;
                                 if (parentDirectory != null)
@@ -310,52 +308,48 @@
                 },
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv == null)
                     {
                         return false;
                     }
 
-                    var fl = getFileListFromListView(lv);
-                    return (new DirectoryInfo(fl.CurrentDirectoryPath).Parent != null);
-                }
-            ));
+                    var fl = GetFileListFromListView(lv);
+                    return new DirectoryInfo(fl.CurrentDirectoryPath).Parent != null;
+                }));
         }
 
-        private DelegateCommand<string> moveToDirectory;
         public DelegateCommand<string> MoveToDirectory
         {
             get => moveToDirectory ?? (moveToDirectory = new DelegateCommand<string>(
                 path => mainFileList.CurrentDirectoryPath = path,
-                path => new DirectoryInfo(path).Exists
-            ));
+                path => new DirectoryInfo(path).Exists));
         }
 
-        private DelegateCommand<string> moveToDirectoryForSubFileList;
         public DelegateCommand<string> MoveToDirectoryForSubFileList
         {
             get => moveToDirectoryForSubFileList ?? (moveToDirectoryForSubFileList = new DelegateCommand<string>(
                 path => subFileList.CurrentDirectoryPath = path,
-                path => new DirectoryInfo(path).Exists
-            ));
+                path => new DirectoryInfo(path).Exists));
         }
 
-        private DelegateCommand createDirectoryCommand;
         public DelegateCommand CreateDirectoryCommand
         {
             get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
 
                     if (lv == null)
                     {
                         return;
                     }
 
-                    var fl = getFileListFromListView(lv);
+                    var fl = GetFileListFromListView(lv);
 
-                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(),
+                    dialogService.ShowDialog(
+                        nameof(InputDialog),
+                        new DialogParameters(),
                         (IDialogResult result) =>
                         {
                             System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
@@ -365,67 +359,61 @@
                                 if (!string.IsNullOrEmpty(r))
                                 {
                                     ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
-                                    directory.createDirectory();
-                                    fl.reload();
+                                    directory.CreateDirectory();
+                                    fl.Reload();
                                 }
                             }
                         });
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand deleteMarkedFilesCommand;
         public DelegateCommand DeleteMarkedFilesCommand
         {
             get => deleteMarkedFilesCommand ?? (deleteMarkedFilesCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
-                        fl.MarkedFiles.ForEach((ExFile f) => { f.delete(); });
-                        fl.reload();
+                        var fl = GetFileListFromListView(lv);
+                        fl.MarkedFiles.ForEach((ExFile f) => { f.Delete(); });
+                        fl.Reload();
                         fl.SelectedIndex = 0;
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand toggleMarkCommand;
         public DelegateCommand ToggleMarkCommand
         {
             get => toggleMarkCommand ?? (toggleMarkCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         var file = fl.Files[fl.SelectedIndex];
                         file.IsMarked = !file.IsMarked;
-                        fl.raiseMakedFilesChanged();
+                        fl.RaiseMakedFilesChanged();
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand markCommand;
         public DelegateCommand MarkCommand
         {
             get => markCommand ?? (markCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         Action action = () =>
                         {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = true;
                             fl.SelectedIndex++;
-                            fl.raiseMakedFilesChanged();
+                            fl.RaiseMakedFilesChanged();
                         };
 
                         if (repeatCount == 0)
@@ -434,29 +422,27 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand unmarkCommand;
         public DelegateCommand UnmarkCommand
         {
             get => unmarkCommand ?? (unmarkCommand = new DelegateCommand(
                 () =>
                 {
-                    var lv = getFocusingListView();
+                    var lv = GetFocusingListView();
                     if (lv != null)
                     {
-                        var fl = getFileListFromListView(lv);
+                        var fl = GetFileListFromListView(lv);
                         Action action = () =>
                         {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = false;
                             fl.SelectedIndex++;
-                            fl.raiseMakedFilesChanged();
+                            fl.RaiseMakedFilesChanged();
                         };
 
                         if (repeatCount == 0)
@@ -465,92 +451,77 @@
                         }
                         else
                         {
-                            repeatCommand(action);
+                            RepeatCommand(action);
                         }
                     }
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand copyFileCommand;
         public DelegateCommand CopyFileCommand
         {
             get => copyFileCommand ?? (copyFileCommand = new DelegateCommand(
                 () =>
                 {
-                    var fileList = getFileListFromListView(getFocusingListView());
-                    var anotherFileList = getAnotherFileList(fileList);
+                    var fileList = GetFileListFromListView(GetFocusingListView());
+                    var anotherFileList = GetAnotherFileList(fileList);
 
                     fileList.MarkedFiles.ForEach((f) =>
                     {
-                        f.copyTo(anotherFileList.CurrentDirectoryPath);
+                        f.CopyTo(anotherFileList.CurrentDirectoryPath);
                     });
 
-                    fileList.reload();
-                    anotherFileList.reload();
+                    fileList.Reload();
+                    anotherFileList.Reload();
                 },
-                () => getFocusingListView() != null
-            ));
+                () => GetFocusingListView() != null));
         }
 
-        private DelegateCommand moveFileCommand;
         public DelegateCommand MoveFileCommand
         {
             get => moveFileCommand ?? (moveFileCommand = new DelegateCommand(
                 () =>
                 {
-                    var fileList = getFileListFromListView(getFocusingListView());
-                    var anotherFileList = getAnotherFileList(fileList);
+                    var fileList = GetFileListFromListView(GetFocusingListView());
+                    var anotherFileList = GetAnotherFileList(fileList);
 
                     fileList.MarkedFiles.ForEach((f) =>
                     {
-                        f.moveTo(anotherFileList.CurrentDirectoryPath);
+                        f.MoveTo(anotherFileList.CurrentDirectoryPath);
                     });
 
-                    fileList.reload();
-                    anotherFileList.reload();
+                    fileList.Reload();
+                    anotherFileList.Reload();
                 },
                 () =>
                 {
-                    return (getFocusingListView() != null &&
-                            mainFileList.CurrentDirectoryPath != subFileList.CurrentDirectoryPath);
-                }
-            ));
+                    return GetFocusingListView() != null && mainFileList.CurrentDirectoryPath != subFileList.CurrentDirectoryPath;
+                }));
         }
 
-        private DelegateCommand<ListBox> changeLeftViewStyleToListViewStyleCommand;
         public DelegateCommand<ListBox> ChangeLeftViewStyleToListViewStyleCommand
         {
             get => changeLeftViewStyleToListViewStyleCommand ?? (changeLeftViewStyleToListViewStyleCommand = new DelegateCommand<ListBox>(
-                (lb) => getFileListFromListView(lb).LeftViewStyle = ViewStyle.ListView
-            ));
+                (lb) => GetFileListFromListView(lb).LeftViewStyle = ViewStyle.ListView));
         }
 
-        private DelegateCommand<ListBox> changeLeftViewStyleToListBoxStyleCommand;
         public DelegateCommand<ListBox> ChangeLeftViewStyleToListBoxStyleCommand
         {
             get => changeLeftViewStyleToListBoxStyleCommand ?? (changeLeftViewStyleToListBoxStyleCommand = new DelegateCommand<ListBox>(
-                (lb) => getFileListFromListView(lb).LeftViewStyle = ViewStyle.ListBox
-            ));
+                (lb) => GetFileListFromListView(lb).LeftViewStyle = ViewStyle.ListBox));
         }
 
-        private DelegateCommand<ListBox> changeRightViewStyleToListViewStyleCommand;
         public DelegateCommand<ListBox> ChangeRightViewStyleToListViewStyleCommand
         {
             get => changeRightViewStyleToListViewStyleCommand ?? (changeRightViewStyleToListViewStyleCommand = new DelegateCommand<ListBox>(
-                (lb) => getFileListFromListView(lb).RightViewStyle = ViewStyle.ListView
-            ));
+                (lb) => GetFileListFromListView(lb).RightViewStyle = ViewStyle.ListView));
         }
 
-        private DelegateCommand<ListBox> changeRightViewStyleToListBoxStyleCommand;
         public DelegateCommand<ListBox> ChangeRightViewStyleToListBoxStyleCommand
         {
             get => changeRightViewStyleToListBoxStyleCommand ?? (changeRightViewStyleToListBoxStyleCommand = new DelegateCommand<ListBox>(
-                (lb) => getFileListFromListView(lb).RightViewStyle = ViewStyle.ListBox
-            ));
+                (lb) => GetFileListFromListView(lb).RightViewStyle = ViewStyle.ListBox));
         }
 
-        private DelegateCommand<object> focusCommand;
         public DelegateCommand<object> FocusCommand
         {
             get => focusCommand ?? (focusCommand = new DelegateCommand<object>(
@@ -558,11 +529,9 @@
                 {
                     var view = (System.Windows.Controls.Control)param;
                     view.Focus();
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand<object> focusToURLBarCommandCommand;
         public DelegateCommand<object> FocusToURLBarCommandCommand
         {
             get => focusToURLBarCommandCommand ?? (focusToURLBarCommandCommand = new DelegateCommand<object>(
@@ -571,20 +540,18 @@
                     var textBox = (TextBox)param;
                     textBox.Focus();
                     textBox.SelectAll();
-                }
-            ));
+                }));
         }
 
-        private DelegateCommand<object> setRepeatCountCommand;
         public DelegateCommand<object> SetRepeatCountCommand
         {
             get => setRepeatCountCommand ?? (setRepeatCountCommand = new DelegateCommand<object>(
                 (object param) =>
                 {
-
                     string numberString = param.ToString().Substring(1);
-                    // パラメーターに入ってくる文字列は "d0" から "d9" までの10種類。
-                    // dxの数字部分が、数字キーと対応している。
+
+                    /// パラメーターに入ってくる文字列は "d0" から "d9" までの10種類。
+                    /// dxの数字部分が、数字キーと対応している。
 
                     if (repeatCount == 0)
                     {
@@ -600,16 +567,14 @@
                     {
                         repeatCount = 100;
                     }
-
-                }
-            ));
+                }));
         }
 
         /// <summary>
         /// 現在キーボードフォーカスが当たっている ListView を取得します。
         /// </summary>
         /// <returns> ListView がフォーカスを持っていない場合は null を返します。</returns>
-        private ListBox getFocusingListView()
+        private ListBox GetFocusingListView()
         {
             if (Keyboard.FocusedElement == null)
             {
@@ -630,13 +595,12 @@
             return (obj != null) ? (ListBox)obj : null;
         }
 
-
         /// <summary>
         /// ListView から、それに紐付いている FileList モデルを取得します。
         /// </summary>
         /// <param name="lv"></param>
         /// <returns></returns>
-        private FileList getFileListFromListView(ListBox lv)
+        private FileList GetFileListFromListView(ListBox lv)
         {
             if (ReferenceEquals(mainFileList.Files, lv.ItemsSource))
             {
@@ -656,7 +620,7 @@
         /// </summary>
         /// <param name="fl"></param>
         /// <returns></returns>
-        private FileList getAnotherFileList(FileList fl)
+        private FileList GetAnotherFileList(FileList fl)
         {
             if ((mainFileList == fl) == (subFileList == fl))
             {
@@ -670,7 +634,7 @@
         /// repeatCount の回数だけ action を実行し、実行後に repeatCount を 0 にセットします
         /// </summary>
         /// <param name="action"></param>
-        private void repeatCommand(Action action)
+        private void RepeatCommand(Action action)
         {
             for (int i = 0; i < repeatCount; i++)
             {
@@ -679,6 +643,5 @@
 
             repeatCount = 0;
         }
-
     }
 }

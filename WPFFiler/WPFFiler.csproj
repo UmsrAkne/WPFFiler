@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>IDE0090</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -103,10 +104,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="models\ExFile.cs" />
-    <Compile Include="models\FileList.cs" />
-    <Compile Include="models\FileListControlCommands.cs" />
-    <Compile Include="models\ScrollBehavior.cs" />
+    <Compile Include="Models\ExFile.cs" />
+    <Compile Include="Models\FileList.cs" />
+    <Compile Include="Models\FileListControlCommands.cs" />
+    <Compile Include="Models\ScrollBehavior.cs" />
     <Compile Include="ViewModels\InputDialogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\InputDialog.xaml.cs">
@@ -140,6 +141,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

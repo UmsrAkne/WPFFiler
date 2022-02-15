@@ -1,18 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WPFFiler.models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace WPFFiler.models.Tests
+﻿namespace WPFFiler.Models.Tests
 {
-    [TestClass()]
+    using System.IO;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using WPFFiler.Models;
+
+    [TestClass]
     public class ExFileTests
     {
-
         private readonly string emptyTextFileName0 = "emptyFile0.txt";
         private readonly string emptyTextFileName1 = "emptyFile1.txt";
         private readonly string emptyDirectoryName = "emptyDirectory";
@@ -51,14 +45,14 @@ namespace WPFFiler.models.Tests
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ExFileTest()
         {
             FileInfo f0 = new FileInfo(emptyTextFileName0);
             ExFile f = new ExFile(f0.FullName);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ExistsTest()
         {
             // initialize で生成したファイルが存在するか
@@ -74,7 +68,7 @@ namespace WPFFiler.models.Tests
             Assert.IsTrue(d.Exists);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void IsDirectoryTest()
         {
             // 存在するディレクトリ
@@ -87,8 +81,8 @@ namespace WPFFiler.models.Tests
             Assert.IsFalse(new ExFile("testFileName").IsDirectory);
         }
 
-        [TestMethod()]
-        public void createFileTest()
+        [TestMethod]
+        public void CreateFileTest()
         {
             File.Delete("notExistFile");
 
@@ -96,14 +90,14 @@ namespace WPFFiler.models.Tests
             Assert.IsFalse(f.Exists);
             Assert.IsNull(f.Content);
 
-            f.createFile();
+            f.CreateFile();
             Assert.IsTrue(f.Exists);
             Assert.IsFalse(f.IsDirectory);
             Assert.IsNotNull(f.Content);
         }
 
-        [TestMethod()]
-        public void createDirectoryTest()
+        [TestMethod]
+        public void CreateDirectoryTest()
         {
             Directory.Delete("notExistDirectory");
 
@@ -111,7 +105,7 @@ namespace WPFFiler.models.Tests
             Assert.IsFalse(d.Exists);
             Assert.IsNull(d.Content);
 
-            d.createDirectory();
+            d.CreateDirectory();
             Assert.IsTrue(d.Exists);
             Assert.IsTrue(d.IsDirectory);
             Assert.IsNotNull(d.Content);

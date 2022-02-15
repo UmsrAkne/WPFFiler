@@ -1,4 +1,4 @@
-﻿namespace WPFFiler.models
+﻿namespace WPFFiler.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,20 +11,19 @@
 
     public class ScrollBehavior : Behavior<ListBox>
     {
-
         protected override void OnAttached()
         {
             base.OnAttached();
-            this.AssociatedObject.SelectionChanged += scrollView;
+            this.AssociatedObject.SelectionChanged += ScrollView;
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            this.AssociatedObject.SelectionChanged -= scrollView;
+            this.AssociatedObject.SelectionChanged -= ScrollView;
         }
 
-        private void scrollView(object sender, EventArgs e)
+        private void ScrollView(object sender, EventArgs e)
         {
             var lb = (ListBox)sender;
             lb.ScrollIntoView(lb.SelectedItem);
