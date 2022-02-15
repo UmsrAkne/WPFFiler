@@ -24,7 +24,7 @@
             this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
 
-            PropertyChangedEventHandler pcEventHandler = (Object sender, PropertyChangedEventArgs p) =>
+            PropertyChangedEventHandler pcEventHandler = (object sender, PropertyChangedEventArgs p) =>
             {
                 if (p.PropertyName == nameof(FileList.CurrentDirectoryPath))
                 {

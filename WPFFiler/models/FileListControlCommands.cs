@@ -347,20 +347,23 @@
 
                     var fl = getFileListFromListView(lv);
 
-                    dialogService.ShowDialog(nameof(InputDialog), new DialogParameters(), (IDialogResult result) =>
-                    {
-                        System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
-                        if (result != null)
+                    dialogService.ShowDialog(
+                        nameof(InputDialog),
+                        new DialogParameters(),
+                        (IDialogResult result) =>
                         {
-                            string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
-                            if (!string.IsNullOrEmpty(r))
+                            System.Diagnostics.Debug.WriteLine(result.Parameters.GetValue<string>("InputText"));
+                            if (result != null)
                             {
-                                ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
-                                directory.createDirectory();
-                                fl.reload();
+                                string r = result.Parameters.GetValue<string>(nameof(InputDialogViewModel.InputText));
+                                if (!string.IsNullOrEmpty(r))
+                                {
+                                    ExFile directory = new ExFile(fl.CurrentDirectoryPath + "\\" + r);
+                                    directory.createDirectory();
+                                    fl.reload();
+                                }
                             }
-                        }
-                    });
+                        });
                 }));
         }
 

@@ -68,7 +68,7 @@
             set => SetProperty(ref isMarked, value);
         }
 
-        public Boolean Exists { get => File.Exists(CurrentPath) || Directory.Exists(CurrentPath); }
+        public bool Exists { get => File.Exists(CurrentPath) || Directory.Exists(CurrentPath); }
 
         /// <summary>
         /// 対象がディレクトリであるかを取得します。対象がファイルであるか、存在しない場合は false を返します。

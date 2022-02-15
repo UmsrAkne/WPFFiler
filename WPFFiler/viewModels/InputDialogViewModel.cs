@@ -10,6 +10,8 @@
         private string inputText = string.Empty;
         private DelegateCommand finishCommand;
 
+        public event Action<IDialogResult> RequestClose;
+
         public string Title => "inputDialog";
 
         public string InputText
@@ -17,8 +19,6 @@
             get => inputText;
             set => SetProperty(ref inputText, value);
         }
-
-        public event Action<IDialogResult> RequestClose;
 
         public DelegateCommand FinishCommand
         {

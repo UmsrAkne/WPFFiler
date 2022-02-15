@@ -83,6 +83,14 @@
             }
         }
 
+        public List<ExFile> MarkedFiles
+        {
+            get
+            {
+                return Files.Where((f) => f.IsMarked).ToList();
+            }
+        }
+
         public void reload()
         {
             string[] paths = Directory.GetFiles(CurrentDirectoryPath);
@@ -101,14 +109,6 @@
 
             Files = allFiles;
             SelectedIndex = 0;
-        }
-
-        public List<ExFile> MarkedFiles
-        {
-            get
-            {
-                return Files.Where((f) => f.IsMarked).ToList();
-            }
         }
 
         public void raiseMakedFilesChanged()
