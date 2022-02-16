@@ -11,10 +11,10 @@
 
     public class FileListControlCommands
     {
+        private readonly FileList mainFileList;
+        private readonly IDialogService dialogService;
+        private readonly FileList subFileList;
         private int repeatCount = 0;
-        private FileList mainFileList;
-        private FileList subFileList;
-        private IDialogService dialogService;
 
         private DelegateCommand moveCursorToEndCommand;
         private DelegateCommand moveCursorToHeadCommand;
@@ -408,13 +408,14 @@
                     if (lv != null)
                     {
                         var fl = GetFileListFromListView(lv);
-                        Action action = () =>
+
+                        void action()
                         {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = true;
                             fl.SelectedIndex++;
                             fl.RaiseMakedFilesChanged();
-                        };
+                        }
 
                         if (repeatCount == 0)
                         {
@@ -437,13 +438,14 @@
                     if (lv != null)
                     {
                         var fl = GetFileListFromListView(lv);
-                        Action action = () =>
+
+                        void action()
                         {
                             var file = fl.Files[fl.SelectedIndex];
                             file.IsMarked = false;
                             fl.SelectedIndex++;
                             fl.RaiseMakedFilesChanged();
-                        };
+                        }
 
                         if (repeatCount == 0)
                         {

@@ -15,22 +15,20 @@
         private FileList subFileList = new FileList(@"C:\");
         private FileList subFileListStorage = null;
         private FileListControlCommands fileListControlCommands;
-        private IDialogService dialogService;
         private DelegateCommand changeToMirrorModeCommand;
         private DelegateCommand changeToTwoScreenModeCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
-            this.dialogService = dialogService;
             FileListControlCommands = new FileListControlCommands(dialogService, FileList, SubFileList);
 
-            PropertyChangedEventHandler pcEventHandler = (object sender, PropertyChangedEventArgs p) =>
+            void pcEventHandler(object sender, PropertyChangedEventArgs p)
             {
                 if (p.PropertyName == nameof(FileList.CurrentDirectoryPath))
                 {
                     RaisePropertyChanged(nameof(CurrentDirectoriesPath));
                 }
-            };
+            }
 
             FileList.PropertyChanged += pcEventHandler;
             SubFileList.PropertyChanged += pcEventHandler;

@@ -8,7 +8,6 @@
     public class ExFileTests
     {
         private readonly string emptyTextFileName0 = "emptyFile0.txt";
-        private readonly string emptyTextFileName1 = "emptyFile1.txt";
         private readonly string emptyDirectoryName = "emptyDirectory";
 
         /// <summary>
@@ -43,13 +42,6 @@
             {
                 d0.Delete();
             }
-        }
-
-        [TestMethod]
-        public void ExFileTest()
-        {
-            FileInfo f0 = new FileInfo(emptyTextFileName0);
-            ExFile f = new ExFile(f0.FullName);
         }
 
         [TestMethod]
